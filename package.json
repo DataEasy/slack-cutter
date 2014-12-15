@@ -1,0 +1,52 @@
+{
+  "name": "slack-hooker",
+  "version": "0.0.1",
+  "description": "General hub for Slack incoming and outgoing hooks",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lfilho/slack-hooker"
+  },
+  "scripts": {
+    "start": "node server",
+    "build-container": "docker build -t slack-api-container.",
+    "start-container": "docker run --name slack-api --restart always -p 5000:5000 -d slack-api-container npm start",
+    "stop-container": "docker stop slack-api",
+    "restart-container": "docker restart slack-api",
+    "test": "node_modules/buster/bin/buster-test"
+  },
+  "keywords": [
+    "slack",
+    "docker",
+    "chatops"
+  ],
+  "author": "Luiz Gonzaga dos Santos Filho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lfilho/slack-hooker/issues"
+  },
+  "homepage": "https://github.com/lfilho/slack-hooker",
+  "dependencies": {
+    "array.prototype.find": "^1.0.0",
+    "body-parser": "^1.4.3",
+    "dotenv": "^0.4.0",
+    "express": "^4.4.4",
+    "logfmt": "^1.1.2",
+    "object-keys": "^1.0.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {
+    "buster": "^0.7.17",
+    "grunt": "^0.4.5",
+    "grunt-buster": "^0.3.2",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-connect": "^0.9.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-nodemon": "^0.3.0",
+    "jshint-stylish": "^1.0.0",
+    "load-grunt-tasks": "^1.0.0"
+  }
+}
