@@ -105,4 +105,6 @@ com_crashlytics_export_strings.xml
 # Build files
 build/
 
-REQUIREMENTS.md
+extensionNumbers.json
+.env
+*.log
