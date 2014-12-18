@@ -23,7 +23,7 @@ router.get('/slashCommands/ramal', function (req, res) {
     }
 });
 
-router.post('*', function (req, res) {
+router.post('incomingHooks/bitbucket', function (req, res) {
     var channel = req.path.substring(1);
     var message = bitbucketParser.generateMessage(req.body);
 
