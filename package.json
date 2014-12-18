@@ -31,7 +31,6 @@
     "body-parser": "^1.4.3",
     "dotenv": "^0.4.0",
     "express": "^4.4.4",
-    "logfmt": "^1.1.2",
     "object-keys": "^1.0.1",
     "node-slack": "git+https://github.com/xoxco/node-slack.git"
   },

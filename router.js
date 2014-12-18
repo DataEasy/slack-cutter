@@ -5,12 +5,13 @@ var slackService = require('./lib/slackService');
 var bitbucketParser = require('./lib/incomingHooks/bitbucketParser');
 var extensionNumberCommand = require('./lib/slashCommands/ExtensionNumber');
 
-
 router.use(function(req, res, next) {
 	// log each request to the console
-	console.log('\n===>', req.method, req.url);
+	console.log('\n===>', req.method, req.path);
     if (process.env.NODE_ENV === 'DEBUG' || process.env.NODE_ENV === 'DEV') {
-        console.log(req.body);
+        console.log('PARAMS:\n', req.params);
+        console.log('QUERY:\n', req.query);
+        console.log('BODY:\n', req.body);
     }
 
 	next();
@@ -24,7 +25,6 @@ router.all('/', function (req, res) {
 });
 
 router.get('/slashCommands/ramal', function (req, res) {
-    console.log(req.query);
     var command = req.query && req.query.command || undefined;
     var text = req.query.text || undefined;
 

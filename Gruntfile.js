@@ -28,7 +28,12 @@ module.exports = function (grunt) {
         nodemon: {
             dev: {
                 script: 'server.js',
-                ignore: ['node_modules/**']
+                options: {
+                    ignore: ['node_modules/**'],
+                    env: {
+                        NODE_ENV: 'DEV'
+                    }
+                }
             }
         },
         buster: {
