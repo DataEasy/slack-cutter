@@ -6,7 +6,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         watch: {
             scripts: {
-                files: ['lib/**/*.js', 'test/**/*.js', 'server.js'],
+                files: ['lib/**/*.js', 'test/**/*.js', 'server.js', 'router.js'],
                 tasks: ['buster:test'],
             }
         },
@@ -15,7 +15,7 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish')
             },
-            files: ['lib/**/*.js', 'test/**/*.js', 'Gruntfile.js', 'server.js']
+            files: ['lib/**/*.js', 'test/**/*.js', 'Gruntfile.js', 'server.js', 'router.js']
         },
         concurrent: {
             dev: {
