@@ -2,8 +2,8 @@
 
 var buster = require('buster');
 var fs = require('fs');
-var parser = require('../lib/bitbucketParser');
-var util = require('../lib/util');
+var parser = require('../../lib/incomingHooks/bitbucketParser');
+var util = require('../../lib/util');
 
 // Make some functions global for BDD style
 buster.spec.expose();

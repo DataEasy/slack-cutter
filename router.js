@@ -2,20 +2,20 @@
 var router = require('express').Router();
 
 var slackService = require('./lib/slackService');
-var bitbucketParser = require('./lib/bitbucketParser');
+var bitbucketParser = require('./lib/incomingHooks/bitbucketParser');
 var extensionNumberCommand = require('./lib/slashCommands/ExtensionNumber');
 
-router.get('/', function (req, res) {
+router.get('/slashCommands/ramal', function (req, res) {
     console.log(req.query);
     var command = req.query && req.query.command || undefined;
     var text = req.query.text || undefined;
 
     if (command && command === '/ramal') {
-        var func = text ?
+        var findExtension = text ?
             extensionNumberCommand.find.bind(extensionNumberCommand, text) :
             extensionNumberCommand.find.bind(extensionNumberCommand);
 
-        func(function(out) {
+        findExtension(function(out) {
             res.send(out);
         });
     } else {
