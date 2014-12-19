@@ -8,7 +8,7 @@
     "url": "https://github.com/lfilho/slack-hooker"
   },
   "scripts": {
-    "start": "node server",
+    "start": "node index",
     "build-container": "docker build --rm -t slack-hooker-container .",
     "start-container": "docker run --name slack-hooker --restart always -p 5000:5000 -d slack-hooker-container npm start",
     "stop-container": "docker stop slack-hooker",
