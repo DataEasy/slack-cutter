@@ -6,7 +6,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         watch: {
             scripts: {
-                files: ['lib/**/*.js', 'test/**/*.js', 'server.js', 'router.js'],
+                files: ['lib/**/*.js', 'test/**/*.js', '*.js'],
                 tasks: ['buster:test'],
             }
         },
@@ -15,7 +15,7 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish')
             },
-            files: ['lib/**/*.js', 'test/**/*.js', 'Gruntfile.js', 'server.js', 'router.js']
+            files: ['lib/**/*.js', 'test/**/*.js', '*.js']
         },
         concurrent: {
             dev: {
@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         },
         nodemon: {
             dev: {
-                script: 'server.js',
+                script: 'index.js',
                 options: {
                     ignore: ['node_modules/**'],
                     env: {
@@ -38,6 +38,13 @@ module.exports = function (grunt) {
         },
         buster: {
             test: { }
+        },
+        '6to5': {
+            dist: {
+                files: {
+                    'dist/app.js': 'src/app.js'
+                }
+            }
         }
     });
 

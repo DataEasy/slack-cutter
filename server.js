@@ -11,6 +11,12 @@ var app = express();
 app.use(bodyParser.json());
 app.use('/', router);
 
-app.listen(config.port, function () {
-    console.log('Slack Hooker listening on:', config.port);
-});
+function start() {
+    return app.listen(config.port, function () {
+        console.log('Slack Hooker listening on:', config.port);
+    });
+}
+
+exports.start = start;
+exports.app = app;
+
