@@ -1,6 +1,11 @@
 {
-    "obama"  : 1234,
-    "fax"    : 2345,
-    "jane"   : 3456,
-    "john"   : 4567
+    extensions: {
+        "obama"  : 1234,
+        "fax"    : 2345,
+        "jane"   : 3456,
+        "john"   : 4567
+    },
+    aliases: {
+        "barack": "obama"
+    }
 }

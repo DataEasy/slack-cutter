@@ -34,7 +34,7 @@ describe('API Testing', function () {
 
     describe('Slash Commands', function() {
         describe('Ramal', function() {
-            it('GET /slashCommands/ramal invoked with no args should return all extension numbers',function (done) {
+            it('GET /slashCommands/ramal invoked with no args should return all extension numbers', function (done) {
                 api.get('/slashCommands/ramal')
                     .query({
                         command: '/ramal',
@@ -49,7 +49,7 @@ describe('API Testing', function () {
                     });
             });
 
-            it('GET /slashCommands/ramal invoked with a arg should return filtered extension numbers',function (done) {
+            it('GET /slashCommands/ramal invoked with a arg should return filtered extension numbers', function (done) {
                 api.get('/slashCommands/ramal')
                     .query({
                         command: '/ramal',

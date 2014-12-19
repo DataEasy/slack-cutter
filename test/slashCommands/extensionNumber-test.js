@@ -15,10 +15,15 @@ describe('Extension number Slash command', function () {
 
     beforeAll(function() {
         parsedJsonExtensions = {
-            'luiz': 2322,
-            'aline': 2307,
-            'vinicius_carvalho': 2332,
-            'vinicius.rodrigues': 2323
+            extensions: {
+                'luiz': 2322,
+                'aline': 2307,
+                'vinicius_carvalho': 2332,
+                'vinicius.rodrigues': 2323
+            },
+            aliases: {
+                'gardenio': 'vinicius.rodrigues'
+            }
         };
 
         sinon.stub(util, 'readJsonFromFile').yields(parsedJsonExtensions);
@@ -27,7 +32,7 @@ describe('Extension number Slash command', function () {
     it('should return the extension number for a known username', function (done) {
         extensionNumberCommand.find('luiz', function(result) {
             expect(result).toContain('luiz');
-            expect(result).toContain(parsedJsonExtensions.luiz);
+            expect(result).toContain(parsedJsonExtensions.extensions.luiz);
 
             done();
         });
@@ -46,7 +51,7 @@ describe('Extension number Slash command', function () {
         extensionNumberCommand.find(function(result) {
             var lineBreaksMatch = result.match(/\n/g);
             expect(lineBreaksMatch).toBeArray();
-            expect(lineBreaksMatch.length).toEqual(keys(parsedJsonExtensions).length + 1);
+            expect(lineBreaksMatch.length).toEqual(keys(parsedJsonExtensions.extensions).length + 1);
 
             done();
         });
@@ -56,7 +61,7 @@ describe('Extension number Slash command', function () {
         extensionNumberCommand.find('  \t', function(result) {
             var lineBreaksMatch = result.match(/\n/g);
             expect(lineBreaksMatch).toBeArray();
-            expect(lineBreaksMatch.length).toEqual(keys(parsedJsonExtensions).length + 1);
+            expect(lineBreaksMatch.length).toEqual(keys(parsedJsonExtensions.extensions).length + 1);
 
             done();
         });
@@ -65,6 +70,14 @@ describe('Extension number Slash command', function () {
     it('should return "[Nenhum ramal encontrado]" for when no results are found', function(done) {
         extensionNumberCommand.find('jacksonfive', function(result) {
             expect(result).toContain('[Nenhum ramal encontrado]');
+
+            done();
+        });
+    });
+
+    it('should find items thourgh aliases', function(done) {
+         extensionNumberCommand.find('gardenio', function(result) {
+            expect(result).toContain('rodrigues');
 
             done();
         });
