@@ -4,6 +4,7 @@ var router = require('express').Router();
 var slackService = require('./lib/slackService');
 var bitbucketParser = require('./lib/incomingHooks/bitbucketParser');
 var extensionNumberCommand = require('./lib/slashCommands/ExtensionNumber');
+var config = require('./lib/config');
 
 router.use(function(req, res, next) {
 	// log each request to the console
@@ -39,8 +40,8 @@ router.get('/slashCommands/ramal', function (req, res) {
     }
 });
 
-router.post('incomingHooks/bitbucket', function (req, res) {
-    var channel = req.path.substring(1);
+router.post(/^[/]incomingHooks[/]bitbucket([/]:channel)?/, function (req, res) {
+    var channel = req.param.channel || config.channel.substring(1);
     var message = bitbucketParser.generateMessage(req.body);
 
     if (message !== undefined) {
