@@ -38,13 +38,6 @@ module.exports = function (grunt) {
         },
         buster: {
             test: { }
-        },
-        '6to5': {
-            dist: {
-                files: {
-                    'dist/app.js': 'src/app.js'
-                }
-            }
         }
     });
 
