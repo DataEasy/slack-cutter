@@ -40,15 +40,15 @@ router.get('/slashCommands/ramal', function (req, res) {
     }
 });
 
-router.post(/^[/]incomingHooks[/]bitbucket([/]:channel)?/, function (req, res) {
-    var channel = req.param.channel || config.channel.substring(1);
+router.post('/incomingHooks/bitbucket/:channel?', function (req, res) {
+    var channel = req.params.channel || config.channel.substring(1);
     var message = bitbucketParser.generateMessage(req.body);
 
     if (message !== undefined) {
         slackService.sendMessage(message, channel);
     }
 
-    res.status(200).end();
+    res.status(200).send({ message: message, channel: channel}).end();
 });
 
 module.exports = router;
