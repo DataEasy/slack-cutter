@@ -1,8 +1,9 @@
 # TODO
 
-  * Testes unitários para a API
+  * More unit tests for API endpoints
 
-# Slash Command - Ramal
+## Slash Command - Extension Number
 
-  * Externalizar strings e traduzir i18n
-  * Suportar alias (recepção -> recepcao)
+  * Extract strings and translate using i18n
+  * Map slash commands translations
+    eg.: /ramal (portuguese) -> /extensionNumber (english - default)
