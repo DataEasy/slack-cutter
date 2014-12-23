@@ -25,7 +25,7 @@ router.all('/', function (req, res) {
     res.send('Set your hooks to point here.');
 });
 
-router.get('/slashCommands/ramal', function (req, res) {
+router.get('/slashCommands/extensionNumber', function (req, res) {
     var command = req.query && req.query.command || undefined;
     var text = req.query.text || undefined;
 

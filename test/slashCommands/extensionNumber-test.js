@@ -75,7 +75,7 @@ describe('Extension number Slash command', function () {
         });
     });
 
-    it('should find items thourgh aliases', function(done) {
+    it('should find items through aliases', function(done) {
          extensionNumberCommand.find('gardenio', function(result) {
             expect(result).toContain('rodrigues');
 
