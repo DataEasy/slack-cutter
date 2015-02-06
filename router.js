@@ -3,7 +3,8 @@ var router = require('express').Router();
 
 var slackService = require('./lib/slackService');
 var bitbucketParser = require('./lib/incomingHooks/bitbucketParser');
-var extensionNumberCommand = require('./lib/slashCommands/ExtensionNumber');
+var extensionNumberCommand = require('./lib/slashCommands/extensionNumber/ExtensionNumber');
+var ciCommand = require('./lib/slashCommands/ci/CI');
 var config = require('./lib/config');
 
 router.use(function(req, res, next) {
@@ -25,7 +26,34 @@ router.all('/', function (req, res) {
     res.send('Set your hooks to point here.');
 });
 
-router.get('/slashCommands/extensionNumber', function (req, res) {
+/* TODO: Refactor to all slash commands URLs point to the same URL
+ *  Ex.: `/slashCommands` instead of `slashCommands/commandName`
+ *  and then infer with router to follow based on `req.query.command`
+ */
+
+/* TODO: Extract the following kind of treatment:
+ *  var command = req.query && req.query.command || undefined;
+ *  var text = req.query.text || undefined;
+ *  to an express middleware for the /slashCommands/ endpoint
+ */
+router.get('/slashCommands/ci', function (req, res) {
+    var command = req.query && req.query.command || undefined;
+    var text = req.query.text || undefined;
+
+    if (command && command === '/ci') {
+        var args = text && text.split && text.split(' ') || [];
+
+        ciCommand.runTask.call(ciCommand, args, function(err, out) {
+            if (err) {
+                res.status(400).send(err.message);
+            } else {
+                res.status(200).send(out);
+            }
+        });
+    }
+});
+
+router.get('/slashCommands/ext', function (req, res) {
     var command = req.query && req.query.command || undefined;
     var text = req.query.text || undefined;
 

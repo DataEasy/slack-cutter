@@ -1,0 +1,11 @@
+{
+    "CI_DOMAIN": "ci.my-company.com",
+    "productsJobs": {
+        "myProduct": {
+            "build": "http://ci.my-company.com/job/my-product-build-job",
+            "release": "http://ci.my-company.com/job/my-product-release-job",
+            "deploy": "http://ci.my-company.com/job/my-product-deploy-job",
+            "SLACK_CHANNEL": "slack-channel-name"
+        }
+    }
+}

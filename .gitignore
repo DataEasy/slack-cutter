@@ -106,5 +106,6 @@ com_crashlytics_export_strings.xml
 build/
 
 extensionNumbers.json
+ci.json
 .env
 *.log

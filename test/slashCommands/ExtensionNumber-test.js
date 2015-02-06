@@ -2,7 +2,7 @@
 
 var keys = Object.keys || require('object-keys');
 var buster = require('buster');
-var extensionNumberCommand = require('../../lib/slashCommands/ExtensionNumber');
+var extensionNumberCommand = require('../../lib/slashCommands/extensionNumber/ExtensionNumber');
 var util = require('../../lib/util');
 
 // Make some functions global for BDD style

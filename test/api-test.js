@@ -34,9 +34,9 @@ describe('API Testing', function () {
 
     describe('Slash Commands', function() {
         describe('Extension Numbers', function() {
-            describe('GET /slashCommands/extensionNumber', function() {
+            describe('GET /slashCommands/ext', function() {
                 it('should return all extension numbers when invoked with no args', function (done) {
-                    api.get('/slashCommands/extensionNumber')
+                    api.get('/slashCommands/ext')
                     .query({
                         command: '/ramal',
                         text: ''
@@ -51,7 +51,7 @@ describe('API Testing', function () {
                 });
 
                 it('should return filtered extension numbers when invoked with a arg', function (done) {
-                    api.get('/slashCommands/extensionNumber')
+                    api.get('/slashCommands/ext')
                     .query({
                         command: '/ramal',
                         text: 'luiz'
@@ -66,9 +66,44 @@ describe('API Testing', function () {
                 });
             });
         });
+
+        describe('CI', function() {
+            describe('GET /slashCommands/ci', function() {
+                it('should be passed at least one argument', function (done) {
+                    api.get('/slashCommands/ci')
+                    .query({
+                        command: '/ci',
+                        text: ''
+                    })
+                    .expect(400)
+                    .end(function(err, res) {
+                        if (err) { return done(err); }
+                        expect(res.text).toMatch('At least one argument is necessary');
+
+                        done();
+                    });
+                });
+
+                it('should fail on more than three arguments', function (done) {
+                    api.get('/slashCommands/ci')
+                    .query({
+                        command: '/ci',
+                        text: 'arg1 arg2 arg3 arg4'
+                    })
+                    .expect(400)
+                    .end(function(err, res) {
+                        if (err) { return done(err); }
+                        expect(res.text).toMatch('Only 1 or 3 arguments are accepted');
+
+                        done();
+                    });
+                });
+            });
+        });
     });
 
     describe('Incoming Hooks', function() {
+        /* TODO: silence the actual postback to Slack so the #sandbox channel doesn't get spammed */
         describe('BitBucket PR POST Hook parser', function() {
             var examplePostBody = {
                 'pullrequest_approve':{
