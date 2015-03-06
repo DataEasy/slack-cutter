@@ -26,6 +26,10 @@ router.all('/', function (req, res) {
     res.send('Set your hooks to point here.');
 });
 
+/* TODO: Use middleware to check for slack token's existance (avoid
+ * URL triggering from 3rd parties...
+ */
+
 /* TODO: Refactor to all slash commands URLs point to the same URL
  *  Ex.: `/slashCommands` instead of `slashCommands/commandName`
  *  and then infer with router to follow based on `req.query.command`
