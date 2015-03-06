@@ -66,7 +66,16 @@ describe('CI command', function () {
     });
 
     describe('One argument version', function () {
-        it('should only accept a direct CI job url', function(done) {
+        it('should return the usage help if it\'s a "help" argument', function(done) {
+            ciCommand.runTask(['help'], function(err, out) {
+                expect(err).toBeNull();
+                expect(out).toContain('Usage:');
+
+                done();
+            });
+        });
+
+        it('should only accept a direct CI job url if not "help"', function(done) {
             ciCommand.runTask(['http://my-ci-server.com?my-custom-args=true'], function(err) {
                 expect(err).toBeNull();
                 expect(httpGetStub).toHaveBeenCalledOnce();
