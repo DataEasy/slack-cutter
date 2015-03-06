@@ -1,5 +1,6 @@
 {
     "CI_DOMAIN": "ci.my-company.com",
+    "CI_NAME": "Jenkins",
     "productsJobs": {
         "myProduct": {
             "build": "http://ci.my-company.com/job/my-product-build-job",
