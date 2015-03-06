@@ -27,6 +27,8 @@
         "describe": true,
         "beforeAll": true,
         "afterAll": true,
+        "beforeEach": true,
+        "afterEach": true,
         "before": true,
         "after": true,
         "__utils__": true

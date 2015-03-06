@@ -28,26 +28,26 @@
   "homepage": "https://github.com/lfilho/slack-hooker",
   "dependencies": {
     "array.prototype.find": "^1.0.0",
-    "body-parser": "^1.4.3",
-    "dotenv": "^0.4.0",
-    "express": "^4.4.4",
-    "object-keys": "^1.0.1",
-    "node-slack": "git+https://github.com/xoxco/node-slack.git"
+    "body-parser": "^1.12.0",
+    "dotenv": "^0.5.1",
+    "express": "^4.12.2",
+    "node-slack": "git+https://github.com/xoxco/node-slack.git",
+    "object-keys": "^1.0.3"
   },
   "engines": {
     "node": "0.10.x"
   },
   "devDependencies": {
-    "buster": "^0.7.17",
+    "buster": "^0.7.18",
     "grunt": "^0.4.5",
     "grunt-buster": "^0.3.2",
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-nodemon": "^0.3.0",
-    "jshint-stylish": "^1.0.0",
-    "load-grunt-tasks": "^1.0.0",
+    "grunt-nodemon": "^0.4.0",
+    "jshint-stylish": "^1.0.1",
+    "load-grunt-tasks": "^3.1.0",
     "supertest": "^0.15.0"
   }
 }

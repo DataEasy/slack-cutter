@@ -1,13 +1,22 @@
-bitbucket-slack-pr-hook
-=======================
+Slack Hooker
+============
 
-[![Build Status](https://travis-ci.org/lfilho/bitbucket-slack-pr-hook.svg?branch=master)](https://travis-ci.org/lfilho/bitbucket-slack-pr-hook)
-
-Receive Pull Requests notifications from Bitbucket and send them to Slack.
+We'll hook your integrations up with Slack :)
 
 ## Features
 
-As for 2014-09-26 we support all BitBucket's action types:
+* Incoming Hooks
+  * BitBucket Pull Request integrations = Get notified when something happens over your BB's PRs.
+* Slash commands
+  * Extension Number = Lookup your colleague's extension number from Slack (ex: `/ext John`)
+  * Continuous Integrations commands (tested with Jenkins but should work regardless):
+    * `/build` command (ex: `/build my-product`)
+    * `/release` command (ex: `/release my-product 1.2.3-alpha`)
+    * `/deploy` command (ex: `/deploy my-product 1.2.3-alpha`)
+
+### BitBucket PR integrations
+
+As for today we support all BitBucket's PR action types:
 
   * created
   * updated
@@ -21,10 +30,9 @@ As for 2014-09-26 we support all BitBucket's action types:
 
 See Bitbucket's official docs: [Pull Request POST hook management](https://confluence.atlassian.com/display/BITBUCKET/Pull+Request+POST+hook+management)
 
-## Caveats
-
 Bitbucket does not provide all necessary data in actions responses. For example, for a `comment_*` action we don't have the PR number, link nor name.
 So all we can do is something like "Comment posted for *a* PR" and then the snippet of the comment. But currently there's no way to know where did this comment came from.
+There are several issues opened for this but Atlassian does not seem interested in even replying...
 
 ## Requirements
 
@@ -33,6 +41,8 @@ So all we can do is something like "Comment posted for *a* PR" and then the snip
   * [Node.js](http://nodejs.org/) **OR** [Docker](https://www.docker.com/)
 
 ## Configuration
+
+### General Configuration
 
 The configuration variables are set via environment variables and/or using `.env` file (environment variable takes preference over `.env` file if found).
 This makes it easy to run service also in Docker container.
@@ -57,6 +67,11 @@ docker run -e PORT=5000 -e SLACK_TOKEN=123123 \
   -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel \
   -p 5000:5000 -d bitbucket-slack-pr-hook
 ```
+
+### Slash Commands configuration
+
+Each command takes its own set of custom configuration, stored separately as `.json` files.
+Enter each command folder and edit the example file according to your needs. Then rename it from `...json.example` to `...json`
 
 ## Installation
 
