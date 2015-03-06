@@ -3,6 +3,7 @@
 var buster = require('buster');
 var http = require('http');
 var util = require('../../lib/util');
+var config = require('../../lib/config');
 var slackService = require('../../lib/slackService');
 var ciCommand = require('../../lib/slashCommands/ci/CI');
 
@@ -105,11 +106,15 @@ describe('CI command', function () {
         });
 
         it('should invoke a job url if everything is rightly configured', function(done) {
+            var tempToken = config.token;
+            config.token = 'my_token';
+
             ciCommand.runTask(['release', 'myProduct', '4.8.0'], function(err) {
                 expect(err).toBeNull();
                 expect(httpGetStub).toHaveBeenCalledOnce();
-                expect(httpGetStub).toHaveBeenCalledWithExactly('http://my-ci-server.com/job/My-Product-Release/build?delay=0sec&RELEASE_VERSION=4.8.0');
+                expect(httpGetStub).toHaveBeenCalledWithExactly('http://my-ci-server.com/job/My-Product-Release/build?delay=0sec&RELEASE_VERSION=4.8.0&token=my_token');
 
+                config.token = tempToken;
                 done();
             });
         });
