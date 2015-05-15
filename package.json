@@ -1,6 +1,6 @@
 {
   "name": "slack-hooker",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "General hub for Slack incoming and outgoing hooks",
   "main": "index.js",
   "repository": {
