@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "settings": {
+      "ecmascript": 6
+    },
+    "globals": {
+      "it": true,
+      "describe": true,
+      "beforeEach": true,
+      "afterEach": true,
+      "beforeAll": true,
+      "afterAll": true
+    },
+    "rules": {
+      "strict": 0,
+      "quotes": 0,
+      "no-unused-vars": 0,
+      "camelcase": 0,
+      "no-underscore-dangle": 0,
+      "no-alert": 0,
+      "no-process-exit": 0,
+      "no-shadow": 0,
+      "consistent-return": 0,
+      "no-extra-parens": 1
+    }
+}

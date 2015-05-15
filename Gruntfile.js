@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: ['lib/**/*.js', 'test/**/*.js', '*.js'],
-                tasks: ['buster:test'],
+                tasks: ['buster:test']
             }
         },
         jshint: {

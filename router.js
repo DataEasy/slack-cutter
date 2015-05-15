@@ -1,5 +1,6 @@
 'use strict';
-var router = require('express').Router();
+var express = require('express');
+var router = new express.Router();
 
 var extensionNumberCommand = require('./lib/slashCommands/extensionNumber/ExtensionNumber');
 var ciCommand = require('./lib/slashCommands/ci/CI');
