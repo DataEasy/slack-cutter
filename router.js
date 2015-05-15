@@ -1,11 +1,8 @@
 'use strict';
 var router = require('express').Router();
 
-var slackService = require('./lib/slackService');
-var bitbucketParser = require('./lib/incomingHooks/bitbucketParser');
 var extensionNumberCommand = require('./lib/slashCommands/extensionNumber/ExtensionNumber');
 var ciCommand = require('./lib/slashCommands/ci/CI');
-var config = require('./lib/config');
 
 router.use(function(req, res, next) {
 	// log each request to the console
@@ -70,17 +67,6 @@ router.get('/slashCommands/ext', function (req, res) {
             res.send(out);
         });
     }
-});
-
-router.post('/incomingHooks/bitbucket/:channel?', function (req, res) {
-    var channel = req.params.channel || config.channel.substring(1);
-    var message = bitbucketParser.generateMessage(req.body);
-
-    if (message !== undefined) {
-        slackService.sendMessage(message, channel);
-    }
-
-    res.status(200).send({ message: message, channel: channel}).end();
 });
 
 module.exports = router;
