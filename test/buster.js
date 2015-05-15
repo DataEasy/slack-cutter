@@ -2,7 +2,7 @@
 
 var config = module.exports;
 
-config['default'] = {
+config.default = {
     rootPath: '../',
     environment: 'node',
     sources: ['lib/**/*.js'],

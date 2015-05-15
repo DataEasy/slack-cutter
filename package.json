@@ -8,6 +8,7 @@
     "url": "https://github.com/lfilho/slack-hooker"
   },
   "scripts": {
+    "lint": "eslint .",
     "start": "node index",
     "build-container": "docker build --rm -t slack-hooker-container .",
     "start-container": "docker run --name slack-hooker --restart always -p 5000:5000 -d slack-hooker-container npm start",
@@ -38,7 +39,10 @@
     "node": "0.10.x"
   },
   "devDependencies": {
+    "babel": "^5.4.2",
+    "babel-eslint": "^3.1.1",
     "buster": "^0.7.18",
+    "eslint": "^0.21.1",
     "grunt": "^0.4.5",
     "grunt-buster": "^0.3.2",
     "grunt-concurrent": "^1.0.0",
