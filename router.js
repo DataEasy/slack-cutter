@@ -3,6 +3,8 @@ var express = require('express');
 var router = new express.Router();
 
 var extensionNumberCommand = require('./lib/slashCommands/extensionNumber/ExtensionNumber');
+var listPullRequestOpenCommand = require('./lib/slashCommands/listPullRequestOpen/ListPullRequestOpen');
+
 var ciCommand = require('./lib/slashCommands/ci/CI');
 
 router.use(function(req, res, next) {
@@ -68,6 +70,21 @@ router.get('/slashCommands/ext', function (req, res) {
             res.send(out);
         });
     }
+});
+
+router.get('/slashCommands/prs', function (req, res){
+    var command = req.query && req.query.command || undefined;
+    var text = req.query.text || undefined;
+
+    if(command && command === '/prs'){
+       var searchExtension = text? 
+           listPullRequestOpenCommand.search.bind(listPullRequestOpenCommand, text) : 
+           listPullRequestOpenCommand.search.bind(listPullRequestOpenCommand);
+       searchExtension(function (out) {
+          res.send(out);
+       });
+    }  
+    
 });
 
 module.exports = router;
