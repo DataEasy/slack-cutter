@@ -76,12 +76,14 @@ router.get('/slashCommands/prs', function (req, res) {
     var command = req.query && req.query.command || undefined;
     var text = req.query.text || undefined;
 
-    if (command && command === '/prs') {
-        var searchPrs = text ?
-            prsCommand.search.bind(prsCommand, text) :
-            prsCommand.search.bind(prsCommand);
+    if (!text) {
+        res.status(400).send('At least one argument is necessary');
+        return;
+    }
 
-        searchPrs(function (out) {
+    if (command && command === '/prs') {
+        prsCommand.search(function (out) {
+            //TODO: Right now it's just sending back to slack. Let's make it post to a real channel
             res.send(out);
         });
     }

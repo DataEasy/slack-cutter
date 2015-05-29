@@ -11,11 +11,6 @@ var expect = buster.expect;
 var sinon = buster.sinon;
 
 describe('PRs command', function () {
-    it('//should require at least one argument: repo', function(done) {
-        //TODO
-        // done();
-    });
-
     it('//should order by oldest creation date by default');
 
     it('//should list all open PRs by default');

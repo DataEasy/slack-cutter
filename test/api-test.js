@@ -33,7 +33,7 @@ describe('API Testing', function () {
     });
 
     describe('Slash Commands', function() {
-        describe('//PRs', function() {
+        describe('PRs', function() {
             describe('GET /slashCommands/prs', function() {
                 it('should require at least one argument', function (done) {
                     api.get('/slashCommands/prs')
