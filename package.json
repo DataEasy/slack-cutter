@@ -14,7 +14,7 @@
     "start-container": "docker run --name slack-hooker --restart always -p 5000:5000 -d slack-hooker-container npm start",
     "stop-container": "docker stop slack-hooker",
     "restart-container": "docker restart slack-hooker",
-    "test": "node_modules/buster/bin/buster-test"
+    "test": "buster-test"
   },
   "keywords": [
     "slack",
@@ -53,6 +53,7 @@
     "jshint-stylish": "^1.0.1",
     "load-grunt-tasks": "^3.1.0",
     "request": "^2.56.0",
+    "rewire": "^2.3.3",
     "supertest": "^0.15.0"
   }
 }

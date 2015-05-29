@@ -33,6 +33,25 @@ describe('API Testing', function () {
     });
 
     describe('Slash Commands', function() {
+        describe('//PRs', function() {
+            describe('GET /slashCommands/prs', function() {
+                it('should require at least one argument', function (done) {
+                    api.get('/slashCommands/prs')
+                    .query({
+                        command: '/prs',
+                        text: ''
+                    })
+                    .expect(400)
+                    .end(function(err, res) {
+                        if (err) { return done(err); }
+                        expect(res.text).toMatch('At least one argument is necessary');
+
+                        done();
+                    });
+                });
+            });
+        });
+
         describe('Extension Numbers', function() {
             describe('GET /slashCommands/ext', function() {
                 it('should return all extension numbers when invoked with no args', function (done) {
