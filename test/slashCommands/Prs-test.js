@@ -18,7 +18,17 @@ describe('PRs command', function () {
         }, { message: 'At least one argument must be passed' });
     });
 
-    it('//should order by oldest creation date by default');
+    it('should order by oldest creation date by default', function(done) {
+        var restoreReq = prsCommand.__set__('request', function(options) {
+            expect(options.url).toContain('sort=created');
+            expect(options.url).toContain('direction=desc');
+            done();
+        });
+
+        prsCommand.listPrs('docflow', function() {});
+
+        restoreReq();
+    });
 
     it('should list all open PRs by default', function(done) {
         var restoreReq = prsCommand.__set__('request', function(options) {
