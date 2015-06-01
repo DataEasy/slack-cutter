@@ -32,7 +32,7 @@ describe('PRs command', function () {
     it('should order by oldest creation date by default', function(done) {
         var restoreReq = prsCommand.__set__('request', function(options, callback) {
             expect(options.url).toContain('sort=created');
-            expect(options.url).toContain('direction=desc');
+            expect(options.url).toContain('direction=asc');
 
             callback(null, {}, sampleGithubResponse)
         });
