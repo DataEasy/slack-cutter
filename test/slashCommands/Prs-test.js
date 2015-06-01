@@ -7,11 +7,16 @@ var prsCommand = rewire('../../lib/slashCommands/prs/Prs');
 
 // Make some functions global for BDD style
 buster.spec.expose();
+var assert = buster.assert;
 var expect = buster.expect;
 var sinon = buster.sinon;
 
 describe('PRs command', function () {
-    it('//should receive at least one argument');
+    it('should receive at least one argument', function() {
+        assert.exception(function() {
+            prsCommand.search();
+        }, { message: 'At least one argument must be passed' });
+    });
 
     it('//should order by oldest creation date by default');
 
