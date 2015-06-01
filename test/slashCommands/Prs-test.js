@@ -39,7 +39,7 @@ describe('PRs command', function () {
 
         prsCommand.listPrs('docflow', '', function(error, result) {
             var firstLine = result.split('\n\n')[1].split('\n')[0];
-            expect(firstLine).toContain('29d');
+            expect(firstLine).toContain('85d');
 
             restoreReq();
             done();
