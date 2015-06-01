@@ -14,7 +14,7 @@ var sinon = buster.sinon;
 describe('PRs command', function () {
     it('should receive at least one argument', function() {
         assert.exception(function() {
-            prsCommand.search();
+            prsCommand.listPrs();
         }, { message: 'At least one argument must be passed' });
     });
 
@@ -26,7 +26,7 @@ describe('PRs command', function () {
             done();
         });
 
-        prsCommand.search('docflow', function() {});
+        prsCommand.listPrs('docflow', function() {});
 
         restoreReq();
     });
@@ -39,7 +39,7 @@ describe('PRs command', function () {
             done();
         });
 
-        prsCommand.search('docflow', function() {});
+        prsCommand.listPrs('docflow', function() {});
 
         restoreReq();
     });

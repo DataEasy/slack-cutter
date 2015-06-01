@@ -82,11 +82,10 @@ router.get('/slashCommands/prs', function (req, res) {
     }
 
     if (command && command === '/prs') {
-        //TODO: change from 'search' to 'list':
         var args = text.split(' ');
         var repo = args[0].trim();
         var criteria = args[1] || undefined;
-        prsCommand.search(repo, criteria, function (out) {
+        prsCommand.listPrs(repo, criteria, function (out) {
             //TODO: Right now it's just sending back to slack. Let's make it post to a real channel
             res.send(out);
         });
