@@ -3,6 +3,7 @@
 var rewire = require('rewire');
 
 var buster = require('buster');
+var fs = require('fs');
 var prsCommand = rewire('../../lib/slashCommands/prs/Prs');
 
 // Make some functions global for BDD style
@@ -12,6 +13,16 @@ var expect = buster.expect;
 var sinon = buster.sinon;
 
 describe('PRs command', function () {
+    var sampleGithubResponse;
+
+    beforeAll(function() {
+        try {
+            sampleGithubResponse = fs.readFileSync('./test/slashCommands/github-response-example.json', { encoding: 'utf8' });
+        } catch (e) {
+            console.log('Error parsing sample JSON file', e);
+        }
+    });
+
     it('should receive at least one argument', function() {
         assert.exception(function() {
             prsCommand.listPrs();
@@ -19,15 +30,20 @@ describe('PRs command', function () {
     });
 
     it('should order by oldest creation date by default', function(done) {
-        var restoreReq = prsCommand.__set__('request', function(options) {
+        var restoreReq = prsCommand.__set__('request', function(options, callback) {
             expect(options.url).toContain('sort=created');
             expect(options.url).toContain('direction=desc');
-            done();
+
+            callback(null, {}, sampleGithubResponse)
         });
 
-        prsCommand.listPrs('docflow', function() {});
+        prsCommand.listPrs('docflow', '', function(error, result) {
+            var firstLine = result.split('\n\n')[1].split('\n')[0];
+            expect(firstLine).toContain('29d');
 
-        restoreReq();
+            restoreReq();
+            done();
+        });
     });
 
     it('should list all open PRs by default', function(done) {
