@@ -11,9 +11,20 @@ var expect = buster.expect;
 var sinon = buster.sinon;
 
 describe('PRs command', function () {
+    it('//should receive at least one argument');
+
     it('//should order by oldest creation date by default');
 
-    it('//should list all open PRs by default');
+    it('should list all open PRs by default', function(done) {
+        var restoreReq = prsCommand.__set__('request', function(options) {
+            expect(options.url).toContain('state=open');
+            done();
+        });
+
+        prsCommand.search('docflow', function() {});
+
+        restoreReq();
+    });
 
     it('//should list PRs older than 5 days if "old" is passed');
 
@@ -23,7 +34,7 @@ describe('PRs command', function () {
             done();
         });
 
-        prsCommand.search('docflow bla', function() {});
+        prsCommand.search('docflow', function() {});
 
         restoreReq();
     });
