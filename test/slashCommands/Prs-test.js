@@ -4,6 +4,7 @@ var rewire = require('rewire');
 
 var buster = require('buster');
 var fs = require('fs');
+var moment = require('moment');
 var prsCommand = rewire('../../lib/slashCommands/prs/Prs');
 
 // Make some functions global for BDD style
@@ -39,7 +40,10 @@ describe('PRs command', function () {
 
         prsCommand.listPrs('docflow', '', function(error, result) {
             var firstLine = result.split('\n\n')[1].split('\n')[0];
-            expect(firstLine).toContain('85d');
+            var originalPrDate = moment('2015-03-08T08:23:32Z');
+            var today = moment();
+            var diff = today.diff(originalPrDate, 'days');
+            expect(firstLine).toContain(diff + 'd');
 
             restoreReq();
             done();
