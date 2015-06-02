@@ -61,8 +61,6 @@ describe('PRs command', function () {
         restoreReq();
     });
 
-    it('//should list PRs older than 5 days if "old" is passed');
-
     it('should query github\'s URL based on the first argument', function(done) {
         var restoreReq = prsCommand.__set__('request', function(options) {
             expect(options.url).toContain('github.com/repos/dataeasy/docflow/');
