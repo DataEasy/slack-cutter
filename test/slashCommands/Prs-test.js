@@ -40,7 +40,7 @@ describe('PRs command', function () {
 
         prsCommand.listPrs('docflow', '', function(error, result) {
             var firstLine = result.split('\n\n')[1].split('\n')[0];
-            var originalPrDate = moment('2015-03-08T08:23:32Z');
+            var originalPrDate = moment('2015-06-03T02:13:53Z');
             var today = moment();
             var diff = today.diff(originalPrDate, 'days');
             expect(firstLine).toContain(diff + 'd');
