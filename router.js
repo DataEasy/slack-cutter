@@ -1,6 +1,7 @@
 'use strict';
 var express = require('express');
 var router = new express.Router();
+var slackService = require('./lib/slackService');
 
 var extensionNumberCommand = require('./lib/slashCommands/extensionNumber/ExtensionNumber');
 var ciCommand = require('./lib/slashCommands/ci/CI');
@@ -66,6 +67,30 @@ router.get('/slashCommands/ext', function (req, res) {
 
         findExtension(function(out) {
             res.send(out);
+        });
+    }
+});
+
+router.get('/slashCommands/prs', function (req, res) {
+    var command = req.query && req.query.command || undefined;
+    var text = req.query.text || undefined;
+
+    if (!text) {
+        res.status(400).send('At least one argument is necessary');
+        return;
+    }
+
+    if (command && command === '/prs') {
+        var args = text.split(' ');
+        var repo = args[0].trim();
+        var criteria = args[1] || undefined;
+
+        var prsCommand = require('./lib/slashCommands/prs/Prs')(res);
+
+        prsCommand.listPrs(repo, criteria, function (err, out, channel) {
+            if (err) { res.status(400).send(err); }
+
+            slackService.sendSimpleMessage(out, channel);
         });
     }
 });

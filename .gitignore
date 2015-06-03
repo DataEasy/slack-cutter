@@ -107,5 +107,6 @@ build/
 
 extensionNumbers.json
 ci.json
+repoChannelMapping.json
 .env
 *.log
