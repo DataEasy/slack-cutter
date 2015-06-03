@@ -3,8 +3,6 @@ var express = require('express');
 var router = new express.Router();
 
 var extensionNumberCommand = require('./lib/slashCommands/extensionNumber/ExtensionNumber');
-var prsCommand = require('./lib/slashCommands/prs/Prs');
-
 var ciCommand = require('./lib/slashCommands/ci/CI');
 
 router.use(function(req, res, next) {
@@ -85,6 +83,9 @@ router.get('/slashCommands/prs', function (req, res) {
         var args = text.split(' ');
         var repo = args[0].trim();
         var criteria = args[1] || undefined;
+
+        var prsCommand = require('./lib/slashCommands/prs/Prs')(res);
+
         prsCommand.listPrs(repo, criteria, function (err, out) {
             if (err) { res.status(400).send(err); }
             //TODO: Right now it's just sending back to slack. Let's make it post to a real channel

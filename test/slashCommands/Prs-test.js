@@ -13,6 +13,9 @@ var assert = buster.assert;
 var expect = buster.expect;
 var sinon = buster.sinon;
 
+var noop = function() {};
+var dummyRes = { send: noop };
+
 describe('PRs command', function () {
     var sampleGithubResponse;
 
@@ -26,7 +29,7 @@ describe('PRs command', function () {
 
     it('should receive at least one argument', function() {
         assert.exception(function() {
-            prsCommand.listPrs();
+            prsCommand(dummyRes).listPrs();
         }, { message: 'At least one argument must be passed' });
     });
 
@@ -38,7 +41,7 @@ describe('PRs command', function () {
             callback(null, {}, sampleGithubResponse)
         });
 
-        prsCommand.listPrs('docflow', '', function(error, result) {
+        prsCommand(dummyRes).listPrs('docflow', '', function(error, result) {
             var firstLine = result.split('\n\n')[1].split('\n')[0];
             var originalPrDate = moment('2015-06-03T02:13:53Z');
             var today = moment();
@@ -56,7 +59,7 @@ describe('PRs command', function () {
             done();
         });
 
-        prsCommand.listPrs('docflow', function() {});
+        prsCommand(dummyRes).listPrs('docflow', noop);
 
         restoreReq();
     });
@@ -69,7 +72,7 @@ describe('PRs command', function () {
             done();
         });
 
-        prsCommand.listPrs('docflow', function() {});
+        prsCommand(dummyRes).listPrs('docflow', noop);
 
         restoreReq();
     });
