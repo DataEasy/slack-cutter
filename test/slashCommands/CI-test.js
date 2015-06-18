@@ -145,16 +145,5 @@ describe('CI command', function () {
                 done();
             });
         });
-
-        it('should post back a confirmation msg for the requesting user', function(done) {
-            var sendSimpleMessageStub = sandbox.stub(slackService, 'sendSimpleMessage');
-
-            ciCommand.runTask(['release', 'myProduct', '4.8.0'], function(err) {
-                expect(err).toBeNull();
-                expect(sendSimpleMessageStub).toHaveBeenCalled();
-
-                done();
-            });
-        });
     });
 });
