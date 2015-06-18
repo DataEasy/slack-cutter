@@ -43,7 +43,7 @@ describe('PRs command', function () {
 
         prsCommand(dummyRes).listPrs('docflow', '', function(error, result) {
             var firstLine = result.split('\n\n')[1].split('\n')[0];
-            var originalPrDate = moment('2015-06-03T02:13:53Z');
+            var originalPrDate = moment('2015-03-24T14:50:37Z');
             var today = moment();
             var diff = today.diff(originalPrDate, 'days');
             expect(firstLine).toContain(diff + 'd');
@@ -63,8 +63,6 @@ describe('PRs command', function () {
 
         restoreReq();
     });
-
-    it('//should filter prs older than 5 days if "old" is passed as a criteria');
 
     it('should query github\'s URL based on the first argument', function(done) {
         var restoreReq = prsCommand.__set__('request', function(options) {
