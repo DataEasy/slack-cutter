@@ -43,7 +43,7 @@ describe('PRs command', function () {
 
         prsCommand(dummyRes).listPrs('docflow', '', function(error, result) {
             var firstLine = result.split('\n\n')[1].split('\n')[0];
-            var originalPrDate = moment('2015-03-24T14:50:37Z');
+            var originalPrDate = moment('2015-03-25', 'YYYY-MM-DD');
             var today = moment();
             var diff = today.diff(originalPrDate, 'days');
             expect(firstLine).toContain(diff + 'd');
