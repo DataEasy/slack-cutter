@@ -1,3 +1,5 @@
+[![Build Status](http://ci.dataeasy.com.br/buildStatus/icon?job=(SlackHooker) Master Builder)](http://ci.dataeasy.com.br/job/(SlackHooker) Master Builder)
+
 Slack Hooker
 ============
 
