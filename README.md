@@ -93,7 +93,7 @@ which makes it easy to setup the environment without worrying about the requirem
 
 ## Use
 
-### Via plain node
+### Via plain node or npm
 
   1. Run `npm start` (or `node server.js`) to fire up the application (you can do `node server.js &` to run it as a daemon in your Linux box)
 
