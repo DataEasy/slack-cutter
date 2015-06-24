@@ -38,7 +38,7 @@ describe('PRs command', function () {
             expect(options.url).toContain('sort=created');
             expect(options.url).toContain('direction=asc');
 
-            callback(null, {}, sampleGithubResponse)
+            callback(null, {}, sampleGithubResponse);
         });
 
         prsCommand(dummyRes).listPrs('docflow', '', function(error, result) {
