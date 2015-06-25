@@ -1,7 +1,7 @@
 'use strict';
 
 var buster = require('buster');
-var server = require('../server');
+var server = require('../lib/server');
 var config = require('../lib/config');
 var supertest = require('supertest');
 var api = supertest('http://localhost:' + config.port);
