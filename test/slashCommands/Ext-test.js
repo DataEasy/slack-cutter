@@ -2,7 +2,7 @@
 
 var keys = Object.keys || require('object-keys');
 var buster = require('buster');
-var extensionNumberCommand = require('../../lib/slashCommands/extensionNumber/ExtensionNumber');
+var extCommand = require('../../lib/slashCommands/ext/Ext');
 var util = require('../../lib/util');
 
 // Make some functions global for BDD style
@@ -30,7 +30,7 @@ describe('Extension number Slash command', function () {
     });
 
     it('should return the extension number for a known username', function (done) {
-        extensionNumberCommand.find('luiz', function(result) {
+        extCommand.find('luiz', function(result) {
             expect(result).toContain('luiz');
             expect(result).toContain(parsedJsonExtensions.extensions.luiz);
 
@@ -39,7 +39,7 @@ describe('Extension number Slash command', function () {
     });
 
     it('should return more than one result if a given username is dubious', function(done) {
-        extensionNumberCommand.find('vinicius', function(result) {
+        extCommand.find('vinicius', function(result) {
             expect(result).toContain('carvalho');
             expect(result).toContain('rodrigues');
 
@@ -48,7 +48,7 @@ describe('Extension number Slash command', function () {
     });
 
     it('should return all elements when no argument is passed', function(done) {
-        extensionNumberCommand.find(function(result) {
+        extCommand.find(function(result) {
             var lineBreaksMatch = result.match(/\n/g);
             expect(lineBreaksMatch).toBeArray();
             expect(lineBreaksMatch.length).toEqual(keys(parsedJsonExtensions.extensions).length + 1);
@@ -58,7 +58,7 @@ describe('Extension number Slash command', function () {
     });
 
     it('should return all elements when an empty argument is passed', function(done) {
-        extensionNumberCommand.find('  \t', function(result) {
+        extCommand.find('  \t', function(result) {
             var lineBreaksMatch = result.match(/\n/g);
             expect(lineBreaksMatch).toBeArray();
             expect(lineBreaksMatch.length).toEqual(keys(parsedJsonExtensions.extensions).length + 1);
@@ -68,7 +68,7 @@ describe('Extension number Slash command', function () {
     });
 
     it('should return "[Nenhum ramal encontrado]" for when no results are found', function(done) {
-        extensionNumberCommand.find('jacksonfive', function(result) {
+        extCommand.find('jacksonfive', function(result) {
             expect(result).toContain('[Nenhum ramal encontrado]');
 
             done();
@@ -76,7 +76,7 @@ describe('Extension number Slash command', function () {
     });
 
     it('should find items through aliases', function(done) {
-         extensionNumberCommand.find('gardenio', function(result) {
+         extCommand.find('gardenio', function(result) {
             expect(result).toContain('rodrigues');
 
             done();
