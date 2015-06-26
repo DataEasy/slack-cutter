@@ -1,24 +1,20 @@
-'use strict';
-
-var http = require('http');
-
-var sinon = require('sinon');
-var chai = require('chai');
-var sinonChai = require('sinon-chai');
-var expect = chai.expect;
+import http from 'http';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import chai, {expect} from 'chai';
 chai.use(sinonChai);
 
-var util = require('../../lib/util');
-var config = require('../../lib/config');
-var slackService = require('../../lib/slackService');
-var ciCommand = require('../../lib/slashCommands/ci/CI');
+import util from '../../lib/util';
+import config from '../../lib/config';
+import slackService from '../../lib/slackService';
+import ciCommand from '../../lib/slashCommands/ci/CI';
 
 // Make some functions global for BDD style
 
-describe('CI command', function () {
-    var sandbox = sinon.sandbox.create();
-    var httpGetStub, readJsonFromFileSyncStub;
-    var parsedJsonCI = {
+describe('CI command', () => {
+    const sandbox = sinon.sandbox.create();
+    let httpGetStub, readJsonFromFileSyncStub;
+    const parsedJsonCI = {
         'CI_DOMAIN': 'my-ci-server.com',
         'productsJobs': {
             'myProduct': {
@@ -30,19 +26,19 @@ describe('CI command', function () {
         }
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
         readJsonFromFileSyncStub = sandbox.stub(util, 'readJsonFromFileSync').returns(parsedJsonCI);
         httpGetStub = sandbox.stub(http, 'get');
     });
 
-    afterEach(function() {
+    afterEach(() => {
         sandbox.restore();
     });
 
-    it('should be passed at least one argument', function(done) {
-        var sendSimpleMessageStub = sandbox.stub(slackService, 'sendSimpleMessage');
+    it('should be passed at least one argument', done => {
+        const sendSimpleMessageStub = sandbox.stub(slackService, 'sendSimpleMessage');
 
-        ciCommand.runTask([], function(err) {
+        ciCommand.runTask([], err => {
             expect(err).not.to.be.null;
             expect(err.message).to.equal('At least one argument is necessary');
             expect(sendSimpleMessageStub).not.to.have.been.called;
@@ -51,8 +47,8 @@ describe('CI command', function () {
         });
     });
 
-    it('should fail on more than three arguments', function(done) {
-        ciCommand.runTask(['arg1', 'arg2', 'arg3', 'arg4'], function(err) {
+    it('should fail on more than three arguments', done => {
+        ciCommand.runTask(['arg1', 'arg2', 'arg3', 'arg4'], err => {
             expect(err).not.to.be.null;
             expect(err.message).to.equal('Only 1 or 3 arguments are accepted');
 
@@ -60,8 +56,8 @@ describe('CI command', function () {
         });
     });
 
-    it('should fail on two arguments', function(done) {
-        ciCommand.runTask(['arg1', 'arg2'], function(err) {
+    it('should fail on two arguments', done => {
+        ciCommand.runTask(['arg1', 'arg2'], err => {
             expect(err).not.to.be.null;
             expect(err.message).to.equal('Only 1 or 3 arguments are accepted');
 
@@ -69,9 +65,9 @@ describe('CI command', function () {
         });
     });
 
-    describe('One argument version', function () {
-        it('should return the usage help if it\'s a "help" argument', function(done) {
-            ciCommand.runTask(['help'], function(err, out) {
+    describe('One argument version', () => {
+        it('should return the usage help if it\'s a "help" argument', done => {
+            ciCommand.runTask(['help'], (err, out) => {
                 expect(err).to.be.null;
                 expect(out).to.contain('Usage:');
 
@@ -79,8 +75,8 @@ describe('CI command', function () {
             });
         });
 
-        it('should only accept a direct CI job url if not "help"', function(done) {
-            ciCommand.runTask(['http://my-ci-server.com?my-custom-args=true'], function(err) {
+        it('should only accept a direct CI job url if not "help"', done => {
+            ciCommand.runTask(['http://my-ci-server.com?my-custom-args=true'], err => {
                 expect(err).to.be.null;
                 expect(httpGetStub).to.have.been.calledOnce;
 
@@ -88,8 +84,8 @@ describe('CI command', function () {
             });
         });
 
-        it('should not accept any other url', function(done) {
-            ciCommand.runTask(['http://google.com'], function(err) {
+        it('should not accept any other url', done => {
+            ciCommand.runTask(['http://google.com'], err => {
                 expect(err).not.to.be.null;
                 expect(err.message).to.equal('That does not appear do be a valid CI URL');
 
@@ -97,10 +93,10 @@ describe('CI command', function () {
             });
         });
 
-        it('should post back a confirmation msg for the requesting user', function(done) {
-            var sendSimpleMessageStub = sandbox.stub(slackService, 'sendSimpleMessage');
+        it('should post back a confirmation msg for the requesting user', done => {
+            const sendSimpleMessageStub = sandbox.stub(slackService, 'sendSimpleMessage');
 
-            ciCommand.runTask(['http://my-ci-server.com?my-custom-args=true'], function(err) {
+            ciCommand.runTask(['http://my-ci-server.com?my-custom-args=true'], err => {
                 expect(err).to.be.null;
                 expect(sendSimpleMessageStub).to.have.been.called;
 
@@ -109,20 +105,20 @@ describe('CI command', function () {
         });
     });
 
-    describe('Three argument version', function () {
-        it('should take an application name, job name and version', function(done) {
-            ciCommand.runTask(['release', 'myProduct', '4.8.0'], function(err) {
+    describe('Three argument version', () => {
+        it('should take an application name, job name and version', done => {
+            ciCommand.runTask(['release', 'myProduct', '4.8.0'], err => {
                 expect(err).to.be.null;
 
                 done();
             });
         });
 
-        it('should invoke a job url if everything is rightly configured', function(done) {
-            var tempToken = config.token;
+        it('should invoke a job url if everything is rightly configured', done => {
+            const tempToken = config.token;
             config.token = 'my_token';
 
-            ciCommand.runTask(['release', 'myProduct', '4.8.0'], function(err) {
+            ciCommand.runTask(['release', 'myProduct', '4.8.0'], err => {
                 expect(err).to.be.null;
                 expect(httpGetStub).to.have.been.calledOnce;
                 expect(httpGetStub).to.have.been.calledWithExactly('http://my-ci-server.com/job/My-Product-Release/build?delay=0sec&RELEASE_VERSION=4.8.0&token=my_token');
@@ -132,8 +128,8 @@ describe('CI command', function () {
             });
         });
 
-        it('should bork on an unknown product name', function(done) {
-            ciCommand.runTask(['release', 'unknown-app', '4.8.0'], function(err) {
+        it('should bork on an unknown product name', done => {
+            ciCommand.runTask(['release', 'unknown-app', '4.8.0'], err => {
                 expect(err).not.to.be.null;
                 expect(err.message).to.equal('Unknown product: `unknown-app`');
 
@@ -141,8 +137,8 @@ describe('CI command', function () {
             });
         });
 
-        it('should bork on an unknown job name', function(done) {
-            ciCommand.runTask(['unknown-job', 'myProduct', '4.8.0'], function(err) {
+        it('should bork on an unknown job name', done => {
+            ciCommand.runTask(['unknown-job', 'myProduct', '4.8.0'], err => {
                 expect(err).not.to.be.null;
                 expect(err.message).to.equal('Unknown job for `myProduct`: `unknown-job`');
 
