@@ -1,6 +1,7 @@
 # TODO
 
   * More unit tests for API endpoints
+  * Add / Show test coverage results
 
 ## Slash Command - CI
 

@@ -18,8 +18,8 @@
     "container:clean": "npm run container:stop -s && docker rm slack-hooker",
     "container:restart": "docker restart slack-hooker",
     "container:rebuild-and-restart": "npm run container:clean -s && npm run container:build && npm run container:start",
-    "test": "npm run lint -s && buster-test",
-    "test:watch": "npm run lint -s && buster-autotest"
+    "test": "mocha test --recursive",
+    "test:watch": "npm test -- -w"
   },
   "keywords": [
     "slack",
@@ -48,10 +48,14 @@
     "babel": "^5.4.2",
     "babel-eslint": "^3.1.1",
     "buster": "^0.7.18",
+    "chai": "^3.0.0",
     "eslint": "^0.21.1",
+    "mocha": "^2.2.5",
     "nodemon": "^1.3.7",
     "request": "^2.56.0",
     "rewire": "^2.3.3",
+    "sinon": "^1.15.3",
+    "sinon-chai": "^2.8.0",
     "supertest": "^0.15.0"
   }
 }
