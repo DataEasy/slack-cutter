@@ -2,16 +2,15 @@
 
 var rewire = require('rewire');
 
-var buster = require('buster');
+var sinon = require('sinon');
+var chai = require('chai');
+var sinonChai = require('sinon-chai');
+var expect = chai.expect;
+chai.use(sinonChai);
+
 var fs = require('fs');
 var moment = require('moment');
 var prsCommand = rewire('../../lib/slashCommands/prs/Prs');
-
-// Make some functions global for BDD style
-buster.spec.expose();
-var assert = buster.assert;
-var expect = buster.expect;
-var sinon = buster.sinon;
 
 var noop = function() {};
 var dummyRes = { send: noop };
@@ -19,7 +18,7 @@ var dummyRes = { send: noop };
 describe('PRs command', function () {
     var sampleGithubResponse;
 
-    beforeAll(function() {
+    before(function() {
         try {
             sampleGithubResponse = fs.readFileSync('./test/slashCommands/github-response-example.json', { encoding: 'utf8' });
         } catch (e) {
@@ -28,15 +27,16 @@ describe('PRs command', function () {
     });
 
     it('should receive at least one argument', function() {
-        assert.exception(function() {
+        var fn = function() {
             prsCommand(dummyRes).listPrs();
-        }, { message: 'At least one argument must be passed' });
+        };
+        expect(fn).to.throw(/At least one argument must be passed/);
     });
 
     it('should order by oldest creation date by default', function(done) {
         var restoreReq = prsCommand.__set__('request', function(options, callback) {
-            expect(options.url).toContain('sort=created');
-            expect(options.url).toContain('direction=asc');
+            expect(options.url).to.contain('sort=created');
+            expect(options.url).to.contain('direction=asc');
 
             callback(null, {}, sampleGithubResponse);
         });
@@ -46,7 +46,7 @@ describe('PRs command', function () {
             var originalPrDate = moment('2015-03-25', 'YYYY-MM-DD');
             var today = moment();
             var diff = today.diff(originalPrDate, 'days');
-            expect(firstLine).toContain(diff + 'd');
+            expect(firstLine).to.contain(diff + 'd');
 
             restoreReq();
             done();
@@ -55,7 +55,7 @@ describe('PRs command', function () {
 
     it('should list all open PRs by default', function(done) {
         var restoreReq = prsCommand.__set__('request', function(options) {
-            expect(options.url).toContain('state=open');
+            expect(options.url).to.contain('state=open');
             done();
         });
 
@@ -66,7 +66,7 @@ describe('PRs command', function () {
 
     it('should query github\'s URL based on the first argument', function(done) {
         var restoreReq = prsCommand.__set__('request', function(options) {
-            expect(options.url).toContain('github.com/repos/dataeasy/docflow/');
+            expect(options.url).to.contain('github.com/repos/dataeasy/docflow/');
             done();
         });
 
