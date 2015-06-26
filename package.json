@@ -18,7 +18,7 @@
     "container:clean": "npm run container:stop -s && docker rm slack-hooker",
     "container:restart": "docker restart slack-hooker",
     "container:rebuild-and-restart": "npm run container:clean -s && npm run container:build && npm run container:start",
-    "test": "mocha test --recursive",
+    "test": "npm run lint && mocha test --recursive",
     "test:watch": "npm test -- -w"
   },
   "keywords": [
