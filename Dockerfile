@@ -1,13 +1,6 @@
-FROM ubuntu:14.04
+FROM node:0.12
 ENV PORT 5000
 EXPOSE 5000
-
-# Install apps and dependencies
-RUN apt-get update && \
-    apt-get install -y nodejs npm git && \
-    ln -s /usr/bin/nodejs /usr/bin/node && \
-    apt-get clean && \
-    apt-get purge
 
 # Run app as a custom user `app`
 WORKDIR /app
