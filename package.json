@@ -17,7 +17,7 @@
     "container:stop": "docker stop slack-hooker",
     "container:clean": "npm run container:stop -s && docker rm slack-hooker",
     "container:restart": "docker restart slack-hooker",
-    "container:rebuild-and-restart": "npm run container:clean -s && npm run container:build && npm run container:start",
+    "container:rebuild-and-restart": "npm run container:clean -s && npm run container:build && npm run container:run",
     "test": "npm run lint && mocha test --recursive --compilers js:babel/register",
     "test:watch": "npm test -- -w"
   },
