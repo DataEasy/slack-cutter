@@ -1,19 +1,18 @@
-'use strict';
+import server from '../lib/server';
+import config from '../lib/config';
 
-var server = require('../lib/server');
-var config = require('../lib/config');
-var supertest = require('supertest');
-var api = supertest('http://localhost:' + config.port);
-
-var sinon = require('sinon');
-var chai = require('chai');
-var sinonChai = require('sinon-chai');
-var expect = chai.expect;
+import supertest from 'supertest';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import chai, {expect} from 'chai';
 chai.use(sinonChai);
 
-describe('API Testing', function () {
-    before(function() {
-        server.start().on('error', function(e) {
+const api = supertest('http://localhost:' + config.port);
+
+describe('API Testing', () => {
+    before(() => {
+        process.env.NODE_ENV = 'TEST';
+        server.start().on('error', e => {
             if (e.code === 'EADDRINUSE') {
                 console.log('Server already started. Reusing it.');
             } else {
@@ -22,10 +21,10 @@ describe('API Testing', function () {
         });
     });
 
-    it('ALL / should return default message', function(done) {
+    it('ALL / should return default message', done => {
         api.get('/')
             .expect(200)
-            .end(function(err, res) {
+            .end((err, res) => {
                 if (err) { return done(err); }
                 expect(res.text).to.contain('Set your hooks to point here.');
 
@@ -33,17 +32,17 @@ describe('API Testing', function () {
             });
     });
 
-    describe('Slash Commands', function() {
-        describe('PRs', function() {
-            describe('GET /slashCommands/prs', function() {
-                it('should require at least one argument', function (done) {
+    describe('Slash Commands', () => {
+        describe('PRs', () => {
+            describe('GET /slashCommands/prs', () => {
+                it('should require at least one argument', done => {
                     api.get('/slashCommands/prs')
                         .query({
                             command: '/prs',
                             text: ''
                         })
                         .expect(400)
-                        .end(function(err, res) {
+                        .end((err, res) => {
                             if (err) { return done(err); }
                             expect(res.text).to.contain('At least one argument is necessary');
 
@@ -53,16 +52,16 @@ describe('API Testing', function () {
             });
         });
 
-        describe('Extension Numbers', function() {
-            describe('GET /slashCommands/ext', function() {
-                it('should return all extension numbers when invoked with no args', function (done) {
+        describe('Extension Numbers', () => {
+            describe('GET /slashCommands/ext', () => {
+                it('should return all extension numbers when invoked with no args', done => {
                     api.get('/slashCommands/ext')
                         .query({
                             command: '/ramal',
                             text: ''
                         })
                         .expect(200)
-                        .end(function(err, res) {
+                        .end((err, res) => {
                             if (err) { return done(err); }
                             expect(res.text).to.contain('Todos os ramais');
 
@@ -70,14 +69,14 @@ describe('API Testing', function () {
                         });
                 });
 
-                it('should return filtered extension numbers when invoked with a arg', function (done) {
+                it('should return filtered extension numbers when invoked with an arg', done => {
                     api.get('/slashCommands/ext')
                         .query({
                             command: '/ramal',
-                            text: 'luiz'
+                            text: 'barack'
                         })
                         .expect(200)
-                        .end(function(err, res) {
+                        .end((err, res) => {
                             if (err) { return done(err); }
                             expect(res.text).to.contain('Ramais encontrados para');
 
@@ -87,16 +86,16 @@ describe('API Testing', function () {
             });
         });
 
-        describe('CI', function() {
-            describe('GET /slashCommands/ci', function() {
-                it('should be passed at least one argument', function (done) {
+        describe('CI', () => {
+            describe('GET /slashCommands/ci', () => {
+                it('should be passed at least one argument', done => {
                     api.get('/slashCommands/ci')
                         .query({
                             command: '/ci',
                             text: ''
                         })
                         .expect(400)
-                        .end(function(err, res) {
+                        .end((err, res) => {
                             if (err) { return done(err); }
                             expect(res.text).to.contain('At least one argument is necessary');
 
@@ -104,14 +103,14 @@ describe('API Testing', function () {
                         });
                 });
 
-                it('should fail on more than three arguments', function (done) {
+                it('should fail on more than three arguments', done => {
                     api.get('/slashCommands/ci')
                         .query({
                             command: '/ci',
                             text: 'arg1 arg2 arg3 arg4'
                         })
                         .expect(400)
-                        .end(function(err, res) {
+                        .end((err, res) => {
                             if (err) { return done(err); }
                             expect(res.text).to.contain('Only 1 or 3 arguments are accepted');
 

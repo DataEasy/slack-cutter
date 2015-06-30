@@ -1,24 +1,20 @@
-'use strict';
-
-var rewire = require('rewire');
-
-var sinon = require('sinon');
-var chai = require('chai');
-var sinonChai = require('sinon-chai');
-var expect = chai.expect;
+import proxyquire from 'proxyquire';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import chai, {expect} from 'chai';
 chai.use(sinonChai);
 
-var fs = require('fs');
-var moment = require('moment');
-var prsCommand = rewire('../../lib/slashCommands/prs/Prs');
+import fs from 'fs';
+import moment from 'moment';
 
-var noop = function() {};
-var dummyRes = { send: noop };
+const noop = () => {};
+const dummyRes = { send: noop };
 
-describe('PRs command', function () {
-    var sampleGithubResponse;
+describe('PRs command', () => {
+    let sampleGithubResponse;
 
-    before(function() {
+    before(() => {
+        process.env.NODE_ENV = 'TEST';
         try {
             sampleGithubResponse = fs.readFileSync('./test/slashCommands/github-response-example.json', { encoding: 'utf8' });
         } catch (e) {
@@ -26,52 +22,55 @@ describe('PRs command', function () {
         }
     });
 
-    it('should receive at least one argument', function() {
-        var fn = function() {
+    it('should receive at least one argument', () => {
+        const fn = () => {
+            const prsCommand = require('../../lib/slashCommands/prs/Prs');
             prsCommand(dummyRes).listPrs();
         };
         expect(fn).to.throw(/At least one argument must be passed/);
     });
 
-    it('should order by oldest creation date by default', function(done) {
-        var restoreReq = prsCommand.__set__('request', function(options, callback) {
-            expect(options.url).to.contain('sort=created');
-            expect(options.url).to.contain('direction=asc');
+    it('should order by oldest creation date by default', done => {
+        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+            'request': (options, callback) => {
+                expect(options.url).to.contain('sort=created');
+                expect(options.url).to.contain('direction=asc');
 
-            callback(null, {}, sampleGithubResponse);
+                callback(null, {}, sampleGithubResponse);
+            }
         });
 
-        prsCommand(dummyRes).listPrs('docflow', '', function(error, result) {
-            var firstLine = result.split('\n\n')[1].split('\n')[0];
-            var originalPrDate = moment('2015-03-25', 'YYYY-MM-DD');
-            var today = moment();
-            var diff = today.diff(originalPrDate, 'days');
+        prsCommand(dummyRes).listPrs('docflow', undefined, (error, result) => {
+            const temp = result.split('\n\n')[1];
+            const firstLine = temp.split('\n')[0];
+            const originalPrDate = moment('2015-03-25', 'YYYY-MM-DD');
+            const today = moment();
+            const diff = today.diff(originalPrDate, 'days');
             expect(firstLine).to.contain(diff + 'd');
 
-            restoreReq();
             done();
         });
     });
 
-    it('should list all open PRs by default', function(done) {
-        var restoreReq = prsCommand.__set__('request', function(options) {
-            expect(options.url).to.contain('state=open');
-            done();
+    it('should list all open PRs by default', done => {
+        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+            'request': (options, callback) => {
+                expect(options.url).to.contain('state=open');
+                done();
+            }
         });
 
         prsCommand(dummyRes).listPrs('docflow', noop);
-
-        restoreReq();
     });
 
-    it('should query github\'s URL based on the first argument', function(done) {
-        var restoreReq = prsCommand.__set__('request', function(options) {
-            expect(options.url).to.contain('github.com/repos/dataeasy/docflow/');
-            done();
+    it('should query github\'s URL based on the first argument', done => {
+        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+            'request': (options, callback) => {
+                expect(options.url).to.contain('github.com/repos/dataeasy/docflow/');
+                done();
+            }
         });
 
         prsCommand(dummyRes).listPrs('docflow', noop);
-
-        restoreReq();
     });
 });
