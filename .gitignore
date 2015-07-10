@@ -110,3 +110,4 @@ ci.json
 repoChannelMapping.json
 .env
 *.log
+coverage/

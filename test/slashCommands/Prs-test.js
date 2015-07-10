@@ -7,6 +7,8 @@ chai.use(sinonChai);
 import fs from 'fs';
 import moment from 'moment';
 
+import CustomFormatter from '../../lib/slashCommands/prs/CustomFormatter';
+
 const noop = () => {};
 const dummyRes = { send: noop };
 
@@ -40,13 +42,51 @@ describe('PRs command', () => {
             }
         });
 
-        prsCommand(dummyRes).listPrs('docflow', undefined, (error, result) => {
+        prsCommand(dummyRes).listPrs('docflow', (error, result) => {
             const temp = result.split('\n\n')[1];
             const firstLine = temp.split('\n')[0];
             const originalPrDate = moment('2015-03-25', 'YYYY-MM-DD');
             const today = moment();
             const diff = today.diff(originalPrDate, 'days');
             expect(firstLine).to.contain(diff + 'd');
+
+            done();
+        });
+    });
+
+    it('should use the default formatter if no custom formatter for that repo', done => {
+        const formatterSpy = sinon.spy(CustomFormatter, 'defaultFormatter');
+
+        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+            'request': (options, callback) => {
+                callback(null, {}, sampleGithubResponse);
+            },
+            './CustomFormatter': {
+                'defaultFormatter': formatterSpy
+            }
+        });
+
+        prsCommand(dummyRes).listPrs('otherrepo', (error, result) => {
+            expect(formatterSpy).to.have.been.called;
+
+            done();
+        });
+    });
+
+    it('should use custom formatters if present', done => {
+        const formatterSpy = sinon.spy(CustomFormatter, 'docflow');
+
+        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+            'request': (options, callback) => {
+                callback(null, {}, sampleGithubResponse);
+            },
+            './CustomFormatter': {
+                'docflow': formatterSpy
+            }
+        });
+
+        prsCommand(dummyRes).listPrs('docflow', (error, result) => {
+            expect(formatterSpy).to.have.been.called;
 
             done();
         });
