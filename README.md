@@ -5,55 +5,55 @@ Slack Hooker
 
 We'll hook your integrations up with Slack :)
 
+Written in ES6/2015 with transpiling to ES5 via [Babel](http://babeljs.io)
+
 ## Features
 
 * Slash commands
-  * Extension Number = Lookup your colleague's extension number from Slack (ex: `/ext John`)
-  * Continuous Integrations commands (tested with Jenkins but should work regardless):
-    * `/build` command (ex: `/build my-product`)
-    * `/release` command (ex: `/release my-product 1.2.3-alpha`)
-    * `/deploy` command (ex: `/deploy my-product 1.2.3-alpha`)
-* Incoming Hooks
-  *  BitBucket Pull Request integrations = Get notified when something happens over your BB's PRs.
-    * **(Warning: removed since version 0.2)**. Use [this](https://github.com/lfilho/bitbucket-slack-pr-hook) instead.
+  * [Extension Number](./lib/slashCommands/ext/) = Lookup your colleague's extension number. Eg:
+    * `/ext John` --> searches for John's extension number
+    * `/ext` --> List all available extension numbers
+  * [Continuous Integration server](./lib/slashCommands/ci/) = Trigger builds in your CI server. Eg:
+    * `/ci build my-product`
+    * `/ci release my-product 1.2.3-alpha`
+    * `/ci deploy my-product 1.2.3-alpha`
+  * [Pull Requests](./lib/slashCommands/prs/) = List a project Pull Requests from GitHub in a particular channel to facilitate code review and prioritization. Eg:
+    * `/prs my-product`
 
 ## Requirements
 
-  * [Slack](https://slack.com/) channel token: Get your Slack token from your "integrations" page
+  * [Slack](https://slack.com/) token and hook url: Get them from your "integrations" page
   * [Node.js](http://nodejs.org/) **OR** [Docker](https://www.docker.com/)
 
 ## Configuration
 
 ### General Configuration
 
-The configuration variables are set via environment variables and/or using `.env` file (environment variable takes preference over `.env` file if found).
-This makes it easy to run service also in Docker container.
+#### ENV vars
 
-If you want to use `.env` file, copy the `example.env` as `.env` and modify it as needed:
+The configuration variables are set via environment variables and/or using the `.env` file (environment variable has precedence over `.env` file).
+This makes it easier to run the service also in Docker container according to your needs.
 
 ```
-PORT=5000
-SLACK_TOKEN=getfromslack
-SLACK_DOMAIN=mycompany
-SLACK_CHANNEL=mychannel
-SLACK_USERNAME=MyAwesomeBot
+docker run -e PORT=5000 -e SLACK_TOKEN=123123 -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel -p 5000:5000 -d slack-hooker
 ```
+
+If you want to use `.env` file, copy the `example.env` as `.env` and modify it as needed.
+
+The GitHub credentials are only needed if you're planning to use the [`/prs`](./lib/slashCommands/prs/) commands.
+
+#### Slash Commands
+
+Every slash commands takes a `.json` with private data. See the README in each command's directory to learn how to configure / edit them. Basically, you'll have to copy the `*.example.json` to `*.json` and edit them to your needs `;-)`.
 
 Important: if you're going to use a `.env` file AND using Docker, edit it before building the Dockerfile.
 
 When running the service in Docker container, the config values can be provided as parameters:
 
-```
-# Starts Docker container in daemonized mode
-docker run -e PORT=5000 -e SLACK_TOKEN=123123 \
-  -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel \
-  -p 5000:5000 -d slack-hooker
-```
-
 ### Slash Commands configuration
 
 Each command takes its own set of custom configuration, stored separately as `.json` files.
-Enter each command folder and edit the example file according to your needs. Then rename it from `...json.example` to `...json`
+Enter each command folder and edit the example file according to your needs. Then rename it from `*.json.example` to `*.json`
 
 ## Installation
 
@@ -74,31 +74,29 @@ Service can also be installed & deployed using [Docker](https://www.docker.com/)
 which makes it easy to setup the environment without worrying about the requirements.
 
   1. Clone/download this repo
-  2. Install Docker (using system packages in Linux, in Windows or Mac OS X you can use [Boot2docker](http://boot2docker.io/))
-  3. Start Docker service (or `boot2docker up`)
-  4. Build the Docker image:
+  2. Install Docker and start its service
+  3. Build the Docker image: `npm run container:build`
+  4. Start container with appropriate `-e` config parameters (or use `.env` file):
 
-        # Alternatively: npm run build-container
-        docker build -t slack-hooker .
+     docker run -e PORT=5000 -e SLACK_TOKEN=123123 -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel -p 5000:5000 -d slack-hooker
 
-  5. Start container with appropriate `-e` config parameters:
+  5. Ensure the container is running (you should also be able to access the service using web browser: `http://<dockerhost>:5000/`).
 
-        docker run -e PORT=5000 -e SLACK_TOKEN=123123 \
-          -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel \
-          -p 5000:5000 -d slack-hooker
+**Note:** In Linux the `<dockerhost>` is `localhost`, within OSX's Boot2docker, use the IP reported by the command: `boot2docker ip`
 
-  6. Ensure the container is running (you should also be able to access the service using web browser: `http://<dockerhost>:5000/`).
+## Usage
 
-     **Note:** In Linux the `<dockerhost>` is `localhost`, with Boot2docker use the IP reported by the command: `boot2docker ip`
+### Via pure node or npm
 
-## Use
-
-### Via plain node or npm
-
-  1. Run `npm start` (or `node server.js`) to fire up the application (you can do `node server.js &` to run it as a daemon in your Linux box)
+  1. Run `npm start` to fire up the application
 
 ### Via Docker
 
-  1. Run `npm run build-container` to build the container
-  2. Run `npm run start-container` to start the container and the server inside it
-  3. When needed, you can use `npm run stop-container` and `npm run reload-container`
+  1. Run `npm run container:build` to build the container
+  2. Run `npm run container:run` to start the container and the server inside it
+
+You can run `npm run | grep container:` to see other availables container actions.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
