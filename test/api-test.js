@@ -50,7 +50,22 @@ describe('API Testing', () => {
                         });
                 });
 
-                it('should require at least one argument', done => {
+                it('should post a message to the requesting user indicating progress', done => {
+                    api.get('/slashCommands/prs')
+                        .query({
+                            command: '/prs',
+                            text: 'docflow'
+                        })
+                        .expect(200)
+                        .end((err, res) => {
+                            if (err) { return done(err); }
+                            expect(res.text).to.contain('Contactando GitHub.');
+
+                            done();
+                        });
+                });
+
+                it('should post a message to the requesting user indicating progress', done => {
                     api.get('/slashCommands/prs')
                         .query({
                             command: '/prs',

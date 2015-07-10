@@ -42,7 +42,7 @@ describe('PRs command', () => {
             }
         });
 
-        prsCommand(dummyRes).listPrs('docflow', undefined, (error, result) => {
+        prsCommand(dummyRes).listPrs('docflow', (error, result) => {
             const temp = result.split('\n\n')[1];
             const firstLine = temp.split('\n')[0];
             const originalPrDate = moment('2015-03-25', 'YYYY-MM-DD');
@@ -66,7 +66,7 @@ describe('PRs command', () => {
             }
         });
 
-        prsCommand(dummyRes).listPrs('otherrepo', undefined, (error, result) => {
+        prsCommand(dummyRes).listPrs('otherrepo', (error, result) => {
             expect(formatterSpy).to.have.been.called;
 
             done();
@@ -85,7 +85,7 @@ describe('PRs command', () => {
             }
         });
 
-        prsCommand(dummyRes).listPrs('docflow', undefined, (error, result) => {
+        prsCommand(dummyRes).listPrs('docflow', (error, result) => {
             expect(formatterSpy).to.have.been.called;
 
             done();
