@@ -6,8 +6,8 @@ chai.use(sinonChai);
 
 import util from '../../lib/util';
 import config from '../../lib/config';
-import slackService from '../../lib/slackService';
-import ciCommand from '../../lib/slashCommands/ci/CI';
+import slackService from '../../lib/slack-service';
+import ciCommand from '../../lib/slash-commands/ci/ci';
 
 // Make some functions global for BDD style
 

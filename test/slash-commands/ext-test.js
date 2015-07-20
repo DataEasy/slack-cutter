@@ -1,4 +1,4 @@
-import extCommand from '../../lib/slashCommands/ext/Ext';
+import extCommand from '../../lib/slash-commands/ext/ext';
 import util from '../../lib/util';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';

@@ -7,7 +7,7 @@ chai.use(sinonChai);
 import fs from 'fs';
 import moment from 'moment';
 
-import CustomFormatter from '../../lib/slashCommands/prs/CustomFormatter';
+import CustomFormatter from '../../lib/slash-commands/prs/custom-formatter';
 
 const noop = () => {};
 const dummyRes = { send: noop };
@@ -18,7 +18,7 @@ describe('PRs command', () => {
     before(() => {
         process.env.NODE_ENV = 'TEST';
         try {
-            sampleGithubResponse = fs.readFileSync('./test/slashCommands/github-response-example.json', { encoding: 'utf8' });
+            sampleGithubResponse = fs.readFileSync('./test/slash-commands/github-response-example.json', { encoding: 'utf8' });
         } catch (e) {
             console.log('Error parsing sample JSON file', e);
         }
@@ -26,14 +26,14 @@ describe('PRs command', () => {
 
     it('should receive at least one argument', () => {
         const fn = () => {
-            const prsCommand = require('../../lib/slashCommands/prs/Prs');
+            const prsCommand = require('../../lib/slash-commands/prs/prs');
             prsCommand(dummyRes).listPrs();
         };
         expect(fn).to.throw(/At least one argument must be passed/);
     });
 
     it('should order by oldest creation date by default', done => {
-        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+        const prsCommand = proxyquire('../../lib/slash-commands/prs/prs', {
             'request': (options, callback) => {
                 expect(options.url).to.contain('sort=created');
                 expect(options.url).to.contain('direction=asc');
@@ -57,7 +57,7 @@ describe('PRs command', () => {
     it('should use the default formatter if no custom formatter for that repo', done => {
         const formatterSpy = sinon.spy(CustomFormatter, 'defaultFormatter');
 
-        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+        const prsCommand = proxyquire('../../lib/slash-commands/prs/prs', {
             'request': (options, callback) => {
                 callback(null, {}, sampleGithubResponse);
             },
@@ -76,7 +76,7 @@ describe('PRs command', () => {
     it('should use custom formatters if present', done => {
         const formatterSpy = sinon.spy(CustomFormatter, 'docflow');
 
-        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+        const prsCommand = proxyquire('../../lib/slash-commands/prs/prs', {
             'request': (options, callback) => {
                 callback(null, {}, sampleGithubResponse);
             },
@@ -93,7 +93,7 @@ describe('PRs command', () => {
     });
 
     it('should list all open PRs by default', done => {
-        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+        const prsCommand = proxyquire('../../lib/slash-commands/prs/prs', {
             'request': (options, callback) => {
                 expect(options.url).to.contain('state=open');
                 done();
@@ -104,7 +104,7 @@ describe('PRs command', () => {
     });
 
     it('should query github\'s URL based on the first argument', done => {
-        const prsCommand = proxyquire('../../lib/slashCommands/prs/Prs', {
+        const prsCommand = proxyquire('../../lib/slash-commands/prs/prs', {
             'request': (options, callback) => {
                 expect(options.url).to.contain('github.com/repos/dataeasy/docflow/');
                 done();
