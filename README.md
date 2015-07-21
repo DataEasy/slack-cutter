@@ -1,5 +1,6 @@
 [![Build Status](http://ci.dataeasy.com.br/buildStatus/icon?job=(SlackHooker) Master Builder)](http://ci.dataeasy.com.br/job/(SlackHooker) Master Builder)
 [![Coverage Status](https://coveralls.io/repos/DataEasy/slack-hooker/badge.svg?branch=master&service=github)](https://coveralls.io/github/DataEasy/slack-hooker?branch=master)
+[![Dependency Status](https://david-dm.org/DataEasy/slack-hooker.svg)](https://david-dm.org/DataEasy/slack-hooker)
 
 Slack Hooker
 ============
