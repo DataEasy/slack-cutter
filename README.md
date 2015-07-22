@@ -15,8 +15,8 @@ Written in ES6/2015 with transpiling to ES5 via [Babel](http://babeljs.io)
 Right now we have the following slash commands:
 
 * [Extension Number](./lib/slash-commands/ext/): Lookup your colleague's extension number. Eg:
-  * `/ext John` :arrow_right: searches for John's extension number
-  * `/ext` :arrow_right: List all available extension numbers
+  * `/ext John`: searches for John's extension number
+  * `/ext`: List all available extension numbers
 * [Continuous Integration server](./lib/slash-commands/ci/): Trigger builds in your CI server. Eg:
   * `/ci build my-product`
   * `/ci release my-product 1.2.3-alpha`
@@ -45,7 +45,7 @@ The GitHub credentials are only needed if you're planning to use the [`/prs`](./
 
 #### Slash Commands
 
-Every slash commands takes a `.json` with private data. See the README in each command's directory to learn how to configure  and use them. Basically, you'll have to copy the `config.example.json` to `config.json` and edit them to your needs :wink:.
+Every slash commands takes a `.json` with private data. See the README in each command's directory to learn how to configure  and use them. Basically, you'll have to copy the `config.example.json` to `config.json` and edit them to your needs `;-)`.
 
 ## Installation
 
@@ -77,16 +77,17 @@ Alternatively, you can build a Docker image and [deploy as container](#installat
 
 ### Via Docker
 
-  1. If you used the `.env` file: `npm run container:run`
-  2. Wihtout `.env` file:
+  1. Run the container:
+    1. If you used the `.env` file: `npm run container:run`
+    2. Without `.env` file:
 
      ```sh
      docker run -e PORT=5000 -e SLACK_TOKEN=123123 -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel -p 5000:5000 -d slack-hooker
      ```
 
-  3. Ensure the container is running (you should also be able to access the service using web browser: `http://<dockerhost>:5000/`).
+  2. Ensure the container is running (you should also be able to access the service using web browser: `http://<dockerhost>:5000/`).
 
-You can run `npm run | grep container:` to see other availables container actions.
+You can run `npm run | grep container:` to see other available container actions.
 
 ## Contributing
 
