@@ -1,7 +1,8 @@
-languages:
-    JavaScript: true
 engines:
-    eslint:
-        enabled: true
-exclude_paths:
-- node_modules/**
+  eslint:
+    enabled: true
+
+ratings:
+  paths: "**.js"
+
+exclude_paths: "node_modules/**"
