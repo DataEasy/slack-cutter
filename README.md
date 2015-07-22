@@ -1,4 +1,4 @@
-[![Build Status](http://ci.dataeasy.com.br/buildStatus/icon?job=(SlackHooker) Master Builder)](http://ci.dataeasy.com.br/job/(SlackHooker) Master Builder)
+[![Build Status](https://travis-ci.org/DataEasy/slack-hooker.svg)](https://travis-ci.org/DataEasy/slack-hooker)
 [![Test Coverage](https://codeclimate.com/github/DataEasy/slack-hooker/badges/coverage.svg)](https://codeclimate.com/github/DataEasy/slack-hooker/coverage)
 [![Code Climate](https://codeclimate.com/github/DataEasy/slack-hooker/badges/gpa.svg)](https://codeclimate.com/github/DataEasy/slack-hooker)
 [![Dependency Status](https://david-dm.org/DataEasy/slack-hooker.svg)](https://david-dm.org/DataEasy/slack-hooker)
