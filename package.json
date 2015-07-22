@@ -21,7 +21,8 @@
     "test": "npm run lint && npm run coverage",
     "test:watch": "npm test -- -w",
     "posttest": "istanbul check-coverage --statements 90 --branches 90 --functions 90 --lines 90",
-    "coverage": "istanbul cover --print both ./node_modules/mocha/bin/_mocha -- test --recursive --compilers js:babel/register"
+    "coverage": "istanbul cover --print both ./node_modules/mocha/bin/_mocha -- test --recursive --compilers js:babel/register",
+    "codeclimate": "CODECLIMATE_REPO_TOKEN=2dfacbf20f6196807d77967d4f8be4399057dbab3e6285362cdef1675dc1ba88 codeclimate-test-reporter < coverage/lcov.info"
   },
   "keywords": [
     "slack",
@@ -49,6 +50,7 @@
     "babel": "^5.4.2",
     "babel-eslint": "^3.1.1",
     "chai": "^3.0.0",
+    "codeclimate-test-reporter": "^0.1.0",
     "eslint": "^0.24.1",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
