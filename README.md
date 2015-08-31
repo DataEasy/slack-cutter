@@ -8,6 +8,8 @@ Slack Hooker
 
 We'll hook you up with Slack :)
 
+Slack Hooker is an intermediary API to communicate with Slack. You can create custom Slack slash commands, incoming hooks, bots, cron jobs (soon)...
+
 Written in ES6/2015 with transpiling to ES5 via [Babel](http://babeljs.io)
 
 ## Features
@@ -23,6 +25,7 @@ Right now we have the following slash commands:
   * `/ci deploy my-product 1.2.3-alpha`
 * [Pull Requests](./lib/slash-commands/prs/): List a project Pull Requests from GitHub in a particular channel to facilitate code review and prioritization. Eg:
   * `/prs my-product`
+* Any new API should be fairly easy to add. Just create a new route.
 
 ## Requirements
 
