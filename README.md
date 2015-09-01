@@ -1,14 +1,14 @@
-[![Build Status](https://travis-ci.org/DataEasy/slack-hooker.svg)](https://travis-ci.org/DataEasy/slack-hooker)
-[![Test Coverage](https://codeclimate.com/github/DataEasy/slack-hooker/badges/coverage.svg)](https://codeclimate.com/github/DataEasy/slack-hooker/coverage)
-[![Code Climate](https://codeclimate.com/github/DataEasy/slack-hooker/badges/gpa.svg)](https://codeclimate.com/github/DataEasy/slack-hooker)
-[![Dependency Status](https://david-dm.org/DataEasy/slack-hooker.svg)](https://david-dm.org/DataEasy/slack-hooker)
+[![Build Status](https://travis-ci.org/DataEasy/slack-cutter.svg)](https://travis-ci.org/DataEasy/slack-cutter)
+[![Test Coverage](https://codeclimate.com/github/DataEasy/slack-cutter/badges/coverage.svg)](https://codeclimate.com/github/DataEasy/slack-cutter/coverage)
+[![Code Climate](https://codeclimate.com/github/DataEasy/slack-cutter/badges/gpa.svg)](https://codeclimate.com/github/DataEasy/slack-cutter)
+[![Dependency Status](https://david-dm.org/DataEasy/slack-cutter.svg)](https://david-dm.org/DataEasy/slack-cutter)
 
-Slack Hooker
+Slack Cutter
 ============
 
 We'll hook you up with Slack :)
 
-Slack Hooker is an intermediary API to communicate with Slack. You can create custom Slack slash commands, incoming hooks, bots, cron jobs (soon)...
+Slack Cutter is an intermediary API to communicate with Slack. You can create custom Slack slash commands, incoming hooks, bots, cron jobs (soon)...
 
 Written in ES6/2015 with transpiling to ES5 via [Babel](http://babeljs.io)
 
@@ -85,7 +85,7 @@ Alternatively, you can build a Docker image and [deploy as container](#installat
     2. Without `.env` file:
 
      ```sh
-     docker run -e PORT=5000 -e SLACK_TOKEN=123123 -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel -p 5000:5000 -d slack-hooker
+     docker run -e PORT=5000 -e SLACK_TOKEN=123123 -e SLACK_DOMAIN=company -e SLACK_CHANNEL=channel -p 5000:5000 -d slack-cutter
      ```
 
   2. Ensure the container is running (you should also be able to access the service using web browser: `http://<dockerhost>:5000/`).

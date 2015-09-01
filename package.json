@@ -1,22 +1,22 @@
 {
-  "name": "slack-hooker",
+  "name": "slack-cutter",
   "version": "1.0.0",
   "description": "General hub for Slack incoming and outgoing hooks",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lfilho/slack-hooker"
+    "url": "https://github.com/DataEasy/slack-cutter"
   },
   "scripts": {
     "lint": "eslint .",
     "start": "babel-node index",
     "watch": "nodemon -q -w lib/ --exec 'npm run test'",
     "dev": "npm run watch -s && npm start",
-    "container:build": "docker build --rm -t slack-hooker-container .",
-    "container:run": "docker run --name slack-hooker --restart always -p 5000:5000 -d slack-hooker-container npm start",
-    "container:stop": "docker stop slack-hooker",
-    "container:clean": "npm run container:stop -s && docker rm slack-hooker",
-    "container:restart": "docker restart slack-hooker",
+    "container:build": "docker build --rm -t slack-cutter-container .",
+    "container:run": "docker run --name slack-cutter --restart always -p 5000:5000 -d slack-cutter-container npm start",
+    "container:stop": "docker stop slack-cutter",
+    "container:clean": "npm run container:stop -s && docker rm slack-cutter",
+    "container:restart": "docker restart slack-cutter",
     "container:rebuild-and-restart": "npm run container:clean -s && npm run container:build && npm run container:run",
     "test": "npm run lint && npm run coverage",
     "test:watch": "npm test -- -w",
@@ -32,9 +32,9 @@
   "author": "Luiz Gonzaga dos Santos Filho",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lfilho/slack-hooker/issues"
+    "url": "https://github.com/DataEasy/slack-cutter/issues"
   },
-  "homepage": "https://github.com/lfilho/slack-hooker",
+  "homepage": "https://github.com/DataEasy/slack-cutter",
   "dependencies": {
     "array.prototype.find": "^1.0.0",
     "body-parser": "^1.12.0",
