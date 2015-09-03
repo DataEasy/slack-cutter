@@ -6,7 +6,7 @@
 Slack Cutter
 ============
 
-We'll hook you up with Slack :)
+Slack Cutter cuts you some slack!
 
 Slack Cutter is an intermediary API to communicate with Slack. You can create custom Slack slash commands, incoming hooks, bots, cron jobs (soon)...
 
