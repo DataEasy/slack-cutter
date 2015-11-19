@@ -1,6 +1,5 @@
 'use strict';
 
-import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import chai, {expect} from 'chai';
