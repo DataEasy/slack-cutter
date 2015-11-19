@@ -9,7 +9,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "babel-node index",
+    "start": "babel-node lib/app.js",
     "watch:server": "nodemon -q -w lib/ -x babel-node --stage 0 -- index",
     "watch:test": "npm test -- -w",
     "container:build": "docker build --rm -t slack-cutter-container .",
@@ -20,7 +20,7 @@
     "container:rebuild-and-restart": "npm run container:clean -s && npm run container:build && npm run container:run",
     "test": "npm run lint && npm run coverage",
     "posttest": "istanbul check-coverage --statements 90 --branches 90 --functions 90 --lines 90",
-    "coverage": "istanbul cover --print both ./node_modules/mocha/bin/_mocha -- test --recursive --compilers js:babel-core/register",
+    "coverage": "istanbul cover --print both _mocha -- test --recursive --compilers js:babel-core/register",
     "codeclimate": "CODECLIMATE_REPO_TOKEN=ce73fae2642509c74ab33c637bbdb54ed8edf06c11b70069109933bf714b715e codeclimate-test-reporter < coverage/lcov.info"
   },
   "keywords": [
