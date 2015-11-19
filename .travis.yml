@@ -1,4 +1,4 @@
 language: node_js
-node_js: "0.12"
+node_js: "5"
 sudo: false
 after_script: npm run codeclimate
