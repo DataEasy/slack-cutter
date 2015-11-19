@@ -1,6 +1,6 @@
 'use strict';
 
-import server from '../lib/server';
+import app from '../lib/app';
 import config from '../lib/config';
 
 import supertest from 'supertest';
@@ -9,19 +9,10 @@ import sinonChai from 'sinon-chai';
 import chai, {expect} from 'chai';
 chai.use(sinonChai);
 
-const api = supertest('http://localhost:' + config.port);
+const api = supertest.agent(app.listen());
 
 describe('API Testing', () => {
-    before(() => {
-        process.env.NODE_ENV = 'TEST';
-        server.start().on('error', e => {
-            if (e.code === 'EADDRINUSE') {
-                console.log('Server already started. Reusing it.');
-            } else {
-                console.log(e);
-            }
-        });
-    });
+    before(() => process.env.NODE_ENV = 'TEST');
 
     it('ALL / should return default message', done => {
         api.get('/')

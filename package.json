@@ -2,7 +2,7 @@
   "name": "slack-cutter",
   "version": "1.0.0",
   "description": "General hub for Slack incoming and outgoing hooks",
-  "main": "index.js",
+  "main": "lib/app.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/DataEasy/slack-cutter"
