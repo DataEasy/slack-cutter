@@ -20,7 +20,7 @@
     "container:rebuild-and-restart": "npm run container:clean -s && npm run container:build && npm run container:run",
     "test": "npm run lint && npm run coverage",
     "posttest": "istanbul check-coverage --statements 90 --branches 90 --functions 90 --lines 90",
-    "coverage": "istanbul cover --print both ./node_modules/mocha/bin/_mocha -- test --recursive --compilers js:babel/register",
+    "coverage": "istanbul cover --print both ./node_modules/mocha/bin/_mocha -- test --recursive --compilers js:babel-core/register",
     "codeclimate": "CODECLIMATE_REPO_TOKEN=ce73fae2642509c74ab33c637bbdb54ed8edf06c11b70069109933bf714b715e codeclimate-test-reporter < coverage/lcov.info"
   },
   "keywords": [
@@ -46,15 +46,15 @@
     "node": "0.12.x"
   },
   "devDependencies": {
-    "babel": "^6.1.18",
+    "babel-core": "^6.2.0",
     "babel-eslint": "^4.1.5",
+    "babel-preset-es2015-node5": "^1.1.0",
     "chai": "^3.0.0",
     "codeclimate-test-reporter": "^0.1.0",
     "eslint": "^1.9.0",
     "istanbul": "^0.4.0",
     "mocha": "^2.2.5",
     "nodemon": "^1.3.7",
-    "proxyquire": "^1.5.0",
     "request": "^2.56.0",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
