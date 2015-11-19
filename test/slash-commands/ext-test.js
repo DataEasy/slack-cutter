@@ -1,3 +1,5 @@
+'use strict';
+
 import extCommand from '../../lib/slash-commands/ext/ext';
 import util from '../../lib/util';
 import sinon from 'sinon';

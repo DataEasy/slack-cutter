@@ -1,3 +1,5 @@
+'use strict';
+
 import server from '../lib/server';
 import config from '../lib/config';
 

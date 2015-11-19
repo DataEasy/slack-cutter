@@ -1,3 +1,5 @@
+'use strict';
+
 import http from 'http';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
