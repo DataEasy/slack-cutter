@@ -1,6 +1,5 @@
 language: node_js
 node_js: "5"
 sudo: false
-before_install: npm install -g babel-cli
+before_script: npm install -g babel-cli && cp .env.example .env
 after_script: npm run codeclimate
-before_script: cp .env.example .env
