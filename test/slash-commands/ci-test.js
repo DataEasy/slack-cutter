@@ -15,7 +15,7 @@ import ciCommand from '../../lib/slash-commands/ci/ci';
 
 describe('CI command', () => {
     const sandbox = sinon.sandbox.create();
-    let httpGetStub, readJsonFromFileSyncStub;
+    let httpGetStub;
     const parsedJsonCI = {
         'CI_DOMAIN': 'my-ci-server.com',
         'productsJobs': {
@@ -29,7 +29,7 @@ describe('CI command', () => {
     };
 
     beforeEach(() => {
-        readJsonFromFileSyncStub = sandbox.stub(util, 'readJsonFromFileSync').returns(parsedJsonCI);
+        sandbox.stub(util, 'readJsonFromFileSync').returns(parsedJsonCI);
         httpGetStub = sandbox.stub(http, 'get');
     });
 

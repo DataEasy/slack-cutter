@@ -1,10 +1,8 @@
 'use strict';
 
 import app from '../lib/app';
-import config from '../lib/config';
 
 import supertest from 'supertest';
-import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import chai, {expect} from 'chai';
 chai.use(sinonChai);

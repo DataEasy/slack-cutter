@@ -65,7 +65,7 @@ describe('PRs command', () => {
         };
 
         prsCommand = new PrsCommand(dummyRes, dummyReq);
-        prsCommand.listPrs('otherrepo', (error, result) => {
+        prsCommand.listPrs('otherrepo', () => {
             expect(formatterSpy).to.have.been.called;
 
             done();
@@ -80,7 +80,7 @@ describe('PRs command', () => {
         };
 
         prsCommand = new PrsCommand(dummyRes, dummyReq);
-        prsCommand.listPrs('docflow', (error, result) => {
+        prsCommand.listPrs('docflow', () => {
             expect(formatterSpy).to.have.been.called;
 
             done();
@@ -88,7 +88,7 @@ describe('PRs command', () => {
     });
 
     it('should list all open PRs by default', done => {
-        const dummyReq = (options, callback) => {
+        const dummyReq = options => {
             expect(options.url).to.contain('state=open');
             done();
         };
@@ -98,7 +98,7 @@ describe('PRs command', () => {
     });
 
     it('should query github\'s URL based on the first argument', done => {
-        const dummyReq = (options, callback) => {
+        const dummyReq = options => {
             expect(options.url).to.contain('github.com/repos/dataeasy/docflow/');
             done();
         };
