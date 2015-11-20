@@ -1,8 +1,9 @@
 'use strict';
 
 import extCommand from '../../lib/slash-commands/ext/ext';
-import util from '../../lib/util';
+import Util from '../../lib/util';
 import sinon from 'sinon';
+const sandbox = sinon.sandbox.create();
 import sinonChai from 'sinon-chai';
 import chai, {expect} from 'chai';
 chai.use(sinonChai);
@@ -23,7 +24,11 @@ describe('Extension number Slash command', () => {
             }
         };
 
-        sinon.stub(util, 'readJsonFromFile').yields(parsedJsonExtensions);
+        sandbox.stub(Util, 'readJsonFromFile').yields(null, parsedJsonExtensions);
+    });
+
+    after(() => {
+        sandbox.restore();
     });
 
     it('should return the extension number for a known username', done => {

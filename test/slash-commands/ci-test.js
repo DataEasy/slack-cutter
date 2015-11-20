@@ -6,7 +6,7 @@ import sinonChai from 'sinon-chai';
 import chai, {expect} from 'chai';
 chai.use(sinonChai);
 
-import util from '../../lib/util';
+import Util from '../../lib/util';
 import config from '../../lib/config';
 import slackService from '../../lib/slack-service';
 import ciCommand from '../../lib/slash-commands/ci/ci';
@@ -29,7 +29,7 @@ describe('CI command', () => {
     };
 
     beforeEach(() => {
-        sandbox.stub(util, 'readJsonFromFileSync').returns(parsedJsonCI);
+        sandbox.stub(Util, 'readJsonFromFileSync').returns(parsedJsonCI);
         httpGetStub = sandbox.stub(http, 'get');
     });
 
