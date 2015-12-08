@@ -1,4 +1,4 @@
-FROM node:0.12
+FROM node:5.1.1
 ENV PORT 5000
 EXPOSE 5000
 
