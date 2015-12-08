@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import chai, {expect} from 'chai';
 chai.use(sinonChai);
+const sandbox = sinon.sandbox.create();
 
 import fs from 'fs';
 import moment from 'moment';
@@ -26,6 +27,8 @@ describe('PRs command', () => {
             console.log('Error parsing sample JSON file', e);
         }
     });
+
+    afterEach(() => sandbox.restore());
 
     it('should receive at least one argument', () => {
         const fn = () => {
@@ -58,7 +61,7 @@ describe('PRs command', () => {
     });
 
     it('should use the default formatter if no custom formatter for that repo', done => {
-        const formatterSpy = sinon.spy(CustomFormatter, 'defaultFormatter');
+        const formatterSpy = sandbox.spy(CustomFormatter, 'defaultFormatter');
 
         const dummyReq = (options, callback) => {
             callback(null, {}, sampleGithubResponse);
@@ -73,7 +76,7 @@ describe('PRs command', () => {
     });
 
     it('should use custom formatters if present', done => {
-        const formatterSpy = sinon.spy(CustomFormatter, 'docflow');
+        const formatterSpy = sandbox.spy(CustomFormatter, 'docflow');
 
         const dummyReq = (options, callback) => {
             callback(null, {}, sampleGithubResponse);
