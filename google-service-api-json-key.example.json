@@ -1,0 +1,7 @@
+{
+  "private_key_id": "<your private_key_id>",
+  "private_key": "<your big private_key>",
+  "client_email": "<your client_email>",
+  "client_id": "<your client_id>",
+  "type": "<the type of authentication>"
+}
