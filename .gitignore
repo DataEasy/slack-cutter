@@ -111,5 +111,5 @@ config.json
 coverage/
 
 #files from the integration with google spreadsheets
-google-spreadsheet-config.json
-google-service-api-json-key.json
+#google-spreadsheet-config.json
+#google-service-api-json-key.json
