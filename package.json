@@ -43,7 +43,7 @@
     "dotenv": "1.2.0",
     "express": "^4.12.2",
     "moment": "^2.10.3",
-    "node-slack": "git+https://github.com/xoxco/node-slack.git",
+    "node-slack": "^0.0.6",
     "request": "^2.56.0"
   },
   "engines": {
